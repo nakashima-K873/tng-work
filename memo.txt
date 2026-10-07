@@ -1,0 +1,28 @@
+Mac の ~/research/tng-work/ で VS Code から修正したあと、Mac のターミナルで例えば次を実行します。
+
+cd ~/research/tng-work
+
+git status
+git add .
+git commit -m "Update analysis"
+git push
+
+
+その後、TNG の JupyterLab の Terminal で、
+
+cd ~/tng-work
+git pull
+
+
+逆に、JupyterLab 上で Notebook を実行・保存して内容が変わった場合は、TNG 側で
+cd ~/tng-work
+
+git status
+git add .
+git commit -m "Update notebook on TNG"
+git push
+
+Mac 側で
+
+git restore tng300_z8_descendant_mass.ipynb
+git pull
