@@ -1,0 +1,25 @@
+Parent,A1500_mag,Fate,N,N_selected,Fraction
+Fiducial,0.0,central,658,2532,0.2598736176935229
+Fiducial,0.0,satellite,343,2532,0.13546603475513427
+Fiducial,0.0,merged/disrupted,1531,2532,0.6046603475513428
+Fiducial,0.0,unresolved,0,2532,0.0
+Fiducial,0.5,central,364,1157,0.3146067415730337
+Fiducial,0.5,satellite,151,1157,0.13050993949870354
+Fiducial,0.5,merged/disrupted,642,1157,0.5548833189282627
+Fiducial,0.5,unresolved,0,1157,0.0
+Fiducial,1.0,central,186,504,0.36904761904761907
+Fiducial,1.0,satellite,67,504,0.13293650793650794
+Fiducial,1.0,merged/disrupted,251,504,0.498015873015873
+Fiducial,1.0,unresolved,0,504,0.0
+Mstar > 1e+08,0.0,central,191,587,0.32538330494037476
+Mstar > 1e+08,0.0,satellite,88,587,0.14991482112436116
+Mstar > 1e+08,0.0,merged/disrupted,308,587,0.524701873935264
+Mstar > 1e+08,0.0,unresolved,0,587,0.0
+Mstar > 1e+08,0.5,central,178,529,0.33648393194706994
+Mstar > 1e+08,0.5,satellite,79,529,0.14933837429111532
+Mstar > 1e+08,0.5,merged/disrupted,272,529,0.5141776937618148
+Mstar > 1e+08,0.5,unresolved,0,529,0.0
+Mstar > 1e+08,1.0,central,143,387,0.3695090439276486
+Mstar > 1e+08,1.0,satellite,58,387,0.14987080103359174
+Mstar > 1e+08,1.0,merged/disrupted,186,387,0.4806201550387597
+Mstar > 1e+08,1.0,unresolved,0,387,0.0
