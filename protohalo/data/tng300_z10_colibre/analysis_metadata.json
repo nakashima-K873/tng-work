@@ -1,0 +1,77 @@
+{
+  "simulation": "TNG300-1",
+  "basePath": "/home/tnguser/sims.TNG/L205n2500TNG/output",
+  "h": 0.6774,
+  "start_snapshot": 4,
+  "actual_redshifts": {
+    "4": 9.996590466186333,
+    "8": 8.012172948865935,
+    "17": 4.995933468164624,
+    "50": 0.9972942257819404,
+    "99": 2.220446049250313e-16
+  },
+  "target_snapshots": {
+    "8": 8,
+    "5": 17,
+    "1": 50,
+    "0": 99
+  },
+  "halo_logmass_cut": [
+    10.8,
+    11.2
+  ],
+  "stellar_cuts_Msun": [
+    9000000.0,
+    1000000000.0
+  ],
+  "stellar_mass_mode": "bound",
+  "require_subhalo_flag": true,
+  "tracking_cache_version": "forward-firstprogenitor-v2-block-reader",
+  "tracking_cache_directory": "/home/tnguser/tng-work/protohalo/cache/sublink_tracking_cache",
+  "tracking_block_rows": 16384,
+  "tracking_memory_MB": 128,
+  "tree": "SubLink",
+  "survival_definition": "FirstProgenitor identity on EVERY forward edge; proxy for HBT survival",
+  "weighting": "one entry per z=10 progenitor; no descendant deduplication",
+  "pdf_normalization": "conditional on finite host mass WITHIN each fate/sample; per dex",
+  "uv": {
+    "available": false
+  },
+  "disrupted_host_provenance": "",
+  "min_relation_bin_N": 10,
+  "pdf_bin_width_dex": 0.2,
+  "completeness": [
+    {
+      "Sample": "Halo M11",
+      "N": 145,
+      "N_fate_known": 145,
+      "N_host0_known": 145,
+      "N_UV_known": 0,
+      "N_unique_host0": 124
+    },
+    {
+      "Sample": "Galaxy fiducial",
+      "N": 57205,
+      "N_fate_known": 57205,
+      "N_host0_known": 57191,
+      "N_UV_known": 0,
+      "N_unique_host0": 16636
+    },
+    {
+      "Sample": "Galaxy conservative",
+      "N": 3,
+      "N_fate_known": 3,
+      "N_host0_known": 3,
+      "N_UV_known": 0,
+      "N_unique_host0": 3
+    }
+  ],
+  "limitations": [
+    "SubLink proxy is not HBT-HERONS persistent TrackID survival",
+    "Terminated tracks lack z=0 hosts unless independently supplied",
+    "Nominal COLIBRE stellar cut is below one initial TNG300 baryon mass element",
+    "Bound stellar mass is not COLIBRE 50 pkpc aperture mass",
+    "Legacy z=8 table uses a different tracking implementation",
+    "No EPS or digitized COLIBRE curves; no convergence claim"
+  ]
+}

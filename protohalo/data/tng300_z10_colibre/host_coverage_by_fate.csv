@@ -1,0 +1,9 @@
+Sample,Fate,N_fate,N_host0_known,Host0_coverage
+Halo M11,central,72,72,1.0
+Halo M11,merged/disrupted,57,57,1.0
+Halo M11,satellite,16,16,1.0
+Galaxy fiducial,central,7628,7628,1.0
+Galaxy fiducial,merged/disrupted,42795,42781,0.9996728589788527
+Galaxy fiducial,satellite,6782,6782,1.0
+Galaxy conservative,central,1,1,1.0
+Galaxy conservative,satellite,2,2,1.0
