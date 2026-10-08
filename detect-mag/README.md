@@ -125,3 +125,44 @@ Raw gg includes shot noise; a separately labeled subtraction is also shown.
 Cross spectra retain their signs. Magnetic projections are mass-weighted and
 are distinct from electron-weighted RM. Cone positions use original continuous
 subhalo positions rather than the main notebook's saved coarse pixels.
+
+## Coeval benchmark and the bridge to lightcone correlations
+
+`tng_fr_coeval_to_lightcone.ipynb` starts with the conditions of Zhang & Lidz
+Fig. 1 and Fig. 3: TNG300-3, full coeval boxes, 500² maps and a 0.41 h⁻¹ cMpc
+mesh. It produces halo/electron overdensity, projected |Bz| and RM² maps at z=0,
+then periodic real-space RM²–halo and |RM|–halo correlations at twelve epochs.
+Set `BASE_PATH` to the TNG output mount if discovery fails. The coeval part
+does not depend on prior notebooks.
+
+The paper does not specify every assignment-kernel/catalog-selection detail.
+The notebook records its volume-weighted NGP definitions and compares separate
+ne/B gridding with direct electron-number-weighted B deposition. `HALO_CATALOG`
+can be `fof` or `subhalo`; the default `auto` checks both z=0 counts against the
+paper's 391,144 halos and warns if that does not uniquely identify the catalog.
+This is a controlled benchmark, not a claim of exact numerical reproduction.
+
+It then compares halo and star-bearing galaxy tracers, crops the coeval map
+without changing its epoch, and compares true finite-window and periodic
+correlations. The lightcone part reads the unfiltered theoretical outputs of
+`tng_fr_basic_figures.ipynb` from `fr_basic_figures/` (`LIGHTCONE_DIR` is editable).
+It measures real-space angular correlations by zero-padding and subtracting
+the uniform random-center expectation, normalized by available pixel pairs.
+It also decomposes RM² into the target layer, outside layers and their cross
+term, with an exact estimator-linearity closure check. Pair counts are not
+independent sample counts or error estimates.
+
+Outputs in `fr_coeval_to_lightcone/` (git-ignored):
+
+- `01_coeval_fig1_fields`: four full-box fields at z=0.
+- `02_coeval_fig3_correlations`: real-space coeval curves at twelve redshifts.
+- `03_tracer_and_assignment_controls`: fixed-epoch tracer/deposition comparisons.
+- `04_finite_window_control`: full box versus finite crop.
+- `05_lightcone_real_space_correlations`: edge-corrected w(theta) in each z bin.
+- `06_lightcone_layer_decomposition`: within/outside/cross-term contributions.
+
+PDF/PNG figures, CSV correlation values and JSON provenance are saved. Complete
+2D projections are cached in `cache/`; temporary 3D memory-mapped work grids
+(~3.73 GiB for the default 500³ mesh) are removed after successful projection.
+All gas chunks/cells are read on the initial run. `RUN_LIGHTCONE=False` runs the
+coeval and crop stages alone. No observing beam/noise or angular smoothing is used.

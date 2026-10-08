@@ -1,0 +1,938 @@
+{
+  "halo_level": {
+    "A": {
+      "regression": {
+        "radius": null,
+        "features": [
+          "logM200c_z8"
+        ],
+        "family": "Linear",
+        "cv_score": 0.670719249052213,
+        "fold_std": 0.012009675221409293,
+        "hyperparameters": {
+          "copy_X": true,
+          "fit_intercept": true,
+          "n_jobs": null,
+          "normalize": false,
+          "positive": false
+        }
+      },
+      "classification": {
+        "radius": null,
+        "features": [
+          "logM200c_z8"
+        ],
+        "family": "Logistic",
+        "cv_score": 0.23379568019612898,
+        "fold_std": 0.001941383432576611,
+        "hyperparameters": {
+          "C": 1.0,
+          "class_weight": null,
+          "dual": false,
+          "fit_intercept": true,
+          "intercept_scaling": 1,
+          "l1_ratio": null,
+          "max_iter": 2000,
+          "multi_class": "auto",
+          "n_jobs": null,
+          "penalty": "l2",
+          "random_state": 42,
+          "solver": "lbfgs",
+          "tol": 0.0001,
+          "verbose": 0,
+          "warm_start": false
+        }
+      },
+      "quantile": {
+        "features": [
+          "logM200c_z8"
+        ],
+        "radius": null,
+        "family": "GradientBoostingQuantile",
+        "hyperparameters": {
+          "n_estimators": 100,
+          "learning_rate": 0.05,
+          "max_depth": 2,
+          "min_samples_leaf": 50,
+          "random_state": 42
+        },
+        "alphas": [
+          0.16,
+          0.5,
+          0.84
+        ],
+        "cv_pinball": 0.2016400611885961
+      }
+    },
+    "B": {
+      "regression": {
+        "radius": null,
+        "features": [
+          "logM200c_z8",
+          "logMstar",
+          "SFR"
+        ],
+        "family": "Linear",
+        "cv_score": 0.6706744658746722,
+        "fold_std": 0.010975881722759658,
+        "hyperparameters": {
+          "copy_X": true,
+          "fit_intercept": true,
+          "n_jobs": null,
+          "normalize": false,
+          "positive": false
+        }
+      },
+      "classification": {
+        "radius": null,
+        "features": [
+          "logM200c_z8",
+          "logMstar",
+          "SFR"
+        ],
+        "family": "Logistic",
+        "cv_score": 0.23362776181950226,
+        "fold_std": 0.0015318879266484004,
+        "hyperparameters": {
+          "C": 1.0,
+          "class_weight": null,
+          "dual": false,
+          "fit_intercept": true,
+          "intercept_scaling": 1,
+          "l1_ratio": null,
+          "max_iter": 2000,
+          "multi_class": "auto",
+          "n_jobs": null,
+          "penalty": "l2",
+          "random_state": 42,
+          "solver": "lbfgs",
+          "tol": 0.0001,
+          "verbose": 0,
+          "warm_start": false
+        }
+      },
+      "quantile": {
+        "features": [
+          "logM200c_z8",
+          "logMstar",
+          "SFR"
+        ],
+        "radius": null,
+        "family": "GradientBoostingQuantile",
+        "hyperparameters": {
+          "n_estimators": 100,
+          "learning_rate": 0.05,
+          "max_depth": 2,
+          "min_samples_leaf": 50,
+          "random_state": 42
+        },
+        "alphas": [
+          0.16,
+          0.5,
+          0.84
+        ],
+        "cv_pinball": 0.2020493969738198
+      }
+    },
+    "C": {
+      "regression": {
+        "radius": 15,
+        "features": [
+          "logM200c_z8",
+          "Ngal_R15"
+        ],
+        "family": "RF_depthNone_leaf30",
+        "cv_score": 0.5181953873122906,
+        "fold_std": 0.023075849880765366,
+        "hyperparameters": {
+          "bootstrap": true,
+          "ccp_alpha": 0.0,
+          "criterion": "mse",
+          "max_depth": null,
+          "max_features": 1.0,
+          "max_leaf_nodes": null,
+          "max_samples": null,
+          "min_impurity_decrease": 0.0,
+          "min_impurity_split": null,
+          "min_samples_leaf": 30,
+          "min_samples_split": 2,
+          "min_weight_fraction_leaf": 0.0,
+          "n_estimators": 80,
+          "n_jobs": 2,
+          "oob_score": false,
+          "random_state": 42,
+          "verbose": 0,
+          "warm_start": false
+        }
+      },
+      "classification": {
+        "radius": 15,
+        "features": [
+          "logM200c_z8",
+          "Ngal_R15"
+        ],
+        "family": "Logistic",
+        "cv_score": 0.1497971469818997,
+        "fold_std": 0.00914665384492591,
+        "hyperparameters": {
+          "C": 1.0,
+          "class_weight": null,
+          "dual": false,
+          "fit_intercept": true,
+          "intercept_scaling": 1,
+          "l1_ratio": null,
+          "max_iter": 2000,
+          "multi_class": "auto",
+          "n_jobs": null,
+          "penalty": "l2",
+          "random_state": 42,
+          "solver": "lbfgs",
+          "tol": 0.0001,
+          "verbose": 0,
+          "warm_start": false
+        }
+      },
+      "quantile": {
+        "features": [
+          "logM200c_z8",
+          "Ngal_R15"
+        ],
+        "radius": 15,
+        "family": "GradientBoostingQuantile",
+        "hyperparameters": {
+          "n_estimators": 100,
+          "learning_rate": 0.05,
+          "max_depth": 2,
+          "min_samples_leaf": 50,
+          "random_state": 42
+        },
+        "alphas": [
+          0.16,
+          0.5,
+          0.84
+        ],
+        "cv_pinball": 0.14945557248385727
+      }
+    },
+    "D": {
+      "regression": {
+        "radius": 10,
+        "features": [
+          "logM200c_z8",
+          "Nhalo_R10"
+        ],
+        "family": "RF_depthNone_leaf30",
+        "cv_score": 0.4126554031797253,
+        "fold_std": 0.01339273957372953,
+        "hyperparameters": {
+          "bootstrap": true,
+          "ccp_alpha": 0.0,
+          "criterion": "mse",
+          "max_depth": null,
+          "max_features": 1.0,
+          "max_leaf_nodes": null,
+          "max_samples": null,
+          "min_impurity_decrease": 0.0,
+          "min_impurity_split": null,
+          "min_samples_leaf": 30,
+          "min_samples_split": 2,
+          "min_weight_fraction_leaf": 0.0,
+          "n_estimators": 80,
+          "n_jobs": 2,
+          "oob_score": false,
+          "random_state": 42,
+          "verbose": 0,
+          "warm_start": false
+        }
+      },
+      "classification": {
+        "radius": 10,
+        "features": [
+          "logM200c_z8",
+          "Nhalo_R10"
+        ],
+        "family": "Logistic",
+        "cv_score": 0.1128417429768166,
+        "fold_std": 0.010088466818495083,
+        "hyperparameters": {
+          "C": 1.0,
+          "class_weight": null,
+          "dual": false,
+          "fit_intercept": true,
+          "intercept_scaling": 1,
+          "l1_ratio": null,
+          "max_iter": 2000,
+          "multi_class": "auto",
+          "n_jobs": null,
+          "penalty": "l2",
+          "random_state": 42,
+          "solver": "lbfgs",
+          "tol": 0.0001,
+          "verbose": 0,
+          "warm_start": false
+        }
+      },
+      "quantile": {
+        "features": [
+          "logM200c_z8",
+          "Nhalo_R10"
+        ],
+        "radius": 10,
+        "family": "GradientBoostingQuantile",
+        "hyperparameters": {
+          "n_estimators": 100,
+          "learning_rate": 0.05,
+          "max_depth": 2,
+          "min_samples_leaf": 20,
+          "random_state": 42
+        },
+        "alphas": [
+          0.16,
+          0.5,
+          0.84
+        ],
+        "cv_pinball": 0.11554290505970971
+      }
+    },
+    "E": {
+      "regression": {
+        "radius": 15,
+        "features": [
+          "logM200c_z8",
+          "logMstar",
+          "SFR",
+          "Ngal_R15"
+        ],
+        "family": "RF_depthNone_leaf30",
+        "cv_score": 0.5200706258376497,
+        "fold_std": 0.022984480118397165,
+        "hyperparameters": {
+          "bootstrap": true,
+          "ccp_alpha": 0.0,
+          "criterion": "mse",
+          "max_depth": null,
+          "max_features": 1.0,
+          "max_leaf_nodes": null,
+          "max_samples": null,
+          "min_impurity_decrease": 0.0,
+          "min_impurity_split": null,
+          "min_samples_leaf": 30,
+          "min_samples_split": 2,
+          "min_weight_fraction_leaf": 0.0,
+          "n_estimators": 80,
+          "n_jobs": 2,
+          "oob_score": false,
+          "random_state": 42,
+          "verbose": 0,
+          "warm_start": false
+        }
+      },
+      "classification": {
+        "radius": 15,
+        "features": [
+          "logM200c_z8",
+          "logMstar",
+          "SFR",
+          "Ngal_R15"
+        ],
+        "family": "Logistic",
+        "cv_score": 0.14971730349694023,
+        "fold_std": 0.009616358639772928,
+        "hyperparameters": {
+          "C": 1.0,
+          "class_weight": null,
+          "dual": false,
+          "fit_intercept": true,
+          "intercept_scaling": 1,
+          "l1_ratio": null,
+          "max_iter": 2000,
+          "multi_class": "auto",
+          "n_jobs": null,
+          "penalty": "l2",
+          "random_state": 42,
+          "solver": "lbfgs",
+          "tol": 0.0001,
+          "verbose": 0,
+          "warm_start": false
+        }
+      },
+      "quantile": {
+        "features": [
+          "logM200c_z8",
+          "logMstar",
+          "SFR",
+          "Ngal_R15"
+        ],
+        "radius": 15,
+        "family": "GradientBoostingQuantile",
+        "hyperparameters": {
+          "n_estimators": 100,
+          "learning_rate": 0.05,
+          "max_depth": 2,
+          "min_samples_leaf": 50,
+          "random_state": 42
+        },
+        "alphas": [
+          0.16,
+          0.5,
+          0.84
+        ],
+        "cv_pinball": 0.14992148920763462
+      }
+    },
+    "F": {
+      "regression": {
+        "radius": 10,
+        "features": [
+          "logM200c_z8",
+          "logMstar",
+          "SFR",
+          "Nhalo_R10"
+        ],
+        "family": "RF_depthNone_leaf30",
+        "cv_score": 0.41169253187480187,
+        "fold_std": 0.012908368674673284,
+        "hyperparameters": {
+          "bootstrap": true,
+          "ccp_alpha": 0.0,
+          "criterion": "mse",
+          "max_depth": null,
+          "max_features": 1.0,
+          "max_leaf_nodes": null,
+          "max_samples": null,
+          "min_impurity_decrease": 0.0,
+          "min_impurity_split": null,
+          "min_samples_leaf": 30,
+          "min_samples_split": 2,
+          "min_weight_fraction_leaf": 0.0,
+          "n_estimators": 80,
+          "n_jobs": 2,
+          "oob_score": false,
+          "random_state": 42,
+          "verbose": 0,
+          "warm_start": false
+        }
+      },
+      "classification": {
+        "radius": 10,
+        "features": [
+          "logM200c_z8",
+          "logMstar",
+          "SFR",
+          "Nhalo_R10"
+        ],
+        "family": "Logistic",
+        "cv_score": 0.11277927317538583,
+        "fold_std": 0.010771927112321875,
+        "hyperparameters": {
+          "C": 1.0,
+          "class_weight": null,
+          "dual": false,
+          "fit_intercept": true,
+          "intercept_scaling": 1,
+          "l1_ratio": null,
+          "max_iter": 2000,
+          "multi_class": "auto",
+          "n_jobs": null,
+          "penalty": "l2",
+          "random_state": 42,
+          "solver": "lbfgs",
+          "tol": 0.0001,
+          "verbose": 0,
+          "warm_start": false
+        }
+      },
+      "quantile": {
+        "features": [
+          "logM200c_z8",
+          "logMstar",
+          "SFR",
+          "Nhalo_R10"
+        ],
+        "radius": 10,
+        "family": "GradientBoostingQuantile",
+        "hyperparameters": {
+          "n_estimators": 100,
+          "learning_rate": 0.05,
+          "max_depth": 2,
+          "min_samples_leaf": 20,
+          "random_state": 42
+        },
+        "alphas": [
+          0.16,
+          0.5,
+          0.84
+        ],
+        "cv_pinball": 0.11558913688004654
+      }
+    }
+  },
+  "unique_descendant": {
+    "A": {
+      "regression": {
+        "radius": null,
+        "features": [
+          "logM200c_z8"
+        ],
+        "family": "Linear",
+        "cv_score": 0.5354985413760167,
+        "fold_std": 0.0045198421070703635,
+        "hyperparameters": {
+          "copy_X": true,
+          "fit_intercept": true,
+          "n_jobs": null,
+          "normalize": false,
+          "positive": false
+        }
+      },
+      "classification": {
+        "radius": null,
+        "features": [
+          "logM200c_z8"
+        ],
+        "family": "Logistic",
+        "cv_score": 0.11739607089749494,
+        "fold_std": 0.005564285075616511,
+        "hyperparameters": {
+          "C": 1.0,
+          "class_weight": null,
+          "dual": false,
+          "fit_intercept": true,
+          "intercept_scaling": 1,
+          "l1_ratio": null,
+          "max_iter": 2000,
+          "multi_class": "auto",
+          "n_jobs": null,
+          "penalty": "l2",
+          "random_state": 42,
+          "solver": "lbfgs",
+          "tol": 0.0001,
+          "verbose": 0,
+          "warm_start": false
+        }
+      },
+      "quantile": {
+        "features": [
+          "logM200c_z8"
+        ],
+        "radius": null,
+        "family": "GradientBoostingQuantile",
+        "hyperparameters": {
+          "n_estimators": 100,
+          "learning_rate": 0.05,
+          "max_depth": 2,
+          "min_samples_leaf": 50,
+          "random_state": 42
+        },
+        "alphas": [
+          0.16,
+          0.5,
+          0.84
+        ],
+        "cv_pinball": 0.16099245324102396
+      }
+    },
+    "B": {
+      "regression": {
+        "radius": null,
+        "features": [
+          "logM200c_z8",
+          "logMstar",
+          "SFR"
+        ],
+        "family": "Linear",
+        "cv_score": 0.5371957805250988,
+        "fold_std": 0.0027956178462725904,
+        "hyperparameters": {
+          "copy_X": true,
+          "fit_intercept": true,
+          "n_jobs": null,
+          "normalize": false,
+          "positive": false
+        }
+      },
+      "classification": {
+        "radius": null,
+        "features": [
+          "logM200c_z8",
+          "logMstar",
+          "SFR"
+        ],
+        "family": "Logistic",
+        "cv_score": 0.11943385035281147,
+        "fold_std": 0.005200437139685293,
+        "hyperparameters": {
+          "C": 1.0,
+          "class_weight": null,
+          "dual": false,
+          "fit_intercept": true,
+          "intercept_scaling": 1,
+          "l1_ratio": null,
+          "max_iter": 2000,
+          "multi_class": "auto",
+          "n_jobs": null,
+          "penalty": "l2",
+          "random_state": 42,
+          "solver": "lbfgs",
+          "tol": 0.0001,
+          "verbose": 0,
+          "warm_start": false
+        }
+      },
+      "quantile": {
+        "features": [
+          "logM200c_z8",
+          "logMstar",
+          "SFR"
+        ],
+        "radius": null,
+        "family": "GradientBoostingQuantile",
+        "hyperparameters": {
+          "n_estimators": 100,
+          "learning_rate": 0.05,
+          "max_depth": 2,
+          "min_samples_leaf": 50,
+          "random_state": 42
+        },
+        "alphas": [
+          0.16,
+          0.5,
+          0.84
+        ],
+        "cv_pinball": 0.16088414074658072
+      }
+    },
+    "C": {
+      "regression": {
+        "radius": 8,
+        "features": [
+          "logM200c_z8",
+          "Ngal_R8"
+        ],
+        "family": "RF_depthNone_leaf30",
+        "cv_score": 0.4772079805210985,
+        "fold_std": 0.006813122145261636,
+        "hyperparameters": {
+          "bootstrap": true,
+          "ccp_alpha": 0.0,
+          "criterion": "mse",
+          "max_depth": null,
+          "max_features": 1.0,
+          "max_leaf_nodes": null,
+          "max_samples": null,
+          "min_impurity_decrease": 0.0,
+          "min_impurity_split": null,
+          "min_samples_leaf": 30,
+          "min_samples_split": 2,
+          "min_weight_fraction_leaf": 0.0,
+          "n_estimators": 80,
+          "n_jobs": 2,
+          "oob_score": false,
+          "random_state": 42,
+          "verbose": 0,
+          "warm_start": false
+        }
+      },
+      "classification": {
+        "radius": 10,
+        "features": [
+          "logM200c_z8",
+          "Ngal_R10"
+        ],
+        "family": "Logistic",
+        "cv_score": 0.09729543834178689,
+        "fold_std": 0.005777843030261555,
+        "hyperparameters": {
+          "C": 1.0,
+          "class_weight": null,
+          "dual": false,
+          "fit_intercept": true,
+          "intercept_scaling": 1,
+          "l1_ratio": null,
+          "max_iter": 2000,
+          "multi_class": "auto",
+          "n_jobs": null,
+          "penalty": "l2",
+          "random_state": 42,
+          "solver": "lbfgs",
+          "tol": 0.0001,
+          "verbose": 0,
+          "warm_start": false
+        }
+      },
+      "quantile": {
+        "features": [
+          "logM200c_z8",
+          "Ngal_R8"
+        ],
+        "radius": 8,
+        "family": "GradientBoostingQuantile",
+        "hyperparameters": {
+          "n_estimators": 100,
+          "learning_rate": 0.05,
+          "max_depth": 2,
+          "min_samples_leaf": 50,
+          "random_state": 42
+        },
+        "alphas": [
+          0.16,
+          0.5,
+          0.84
+        ],
+        "cv_pinball": 0.13877805009149402
+      }
+    },
+    "D": {
+      "regression": {
+        "radius": 8,
+        "features": [
+          "logM200c_z8",
+          "Nhalo_R8"
+        ],
+        "family": "RF_depthNone_leaf30",
+        "cv_score": 0.37166863449608983,
+        "fold_std": 0.016870635137333254,
+        "hyperparameters": {
+          "bootstrap": true,
+          "ccp_alpha": 0.0,
+          "criterion": "mse",
+          "max_depth": null,
+          "max_features": 1.0,
+          "max_leaf_nodes": null,
+          "max_samples": null,
+          "min_impurity_decrease": 0.0,
+          "min_impurity_split": null,
+          "min_samples_leaf": 30,
+          "min_samples_split": 2,
+          "min_weight_fraction_leaf": 0.0,
+          "n_estimators": 80,
+          "n_jobs": 2,
+          "oob_score": false,
+          "random_state": 42,
+          "verbose": 0,
+          "warm_start": false
+        }
+      },
+      "classification": {
+        "radius": 10,
+        "features": [
+          "logM200c_z8",
+          "Nhalo_R10"
+        ],
+        "family": "Logistic",
+        "cv_score": 0.0742636328033342,
+        "fold_std": 0.014003800080685747,
+        "hyperparameters": {
+          "C": 1.0,
+          "class_weight": null,
+          "dual": false,
+          "fit_intercept": true,
+          "intercept_scaling": 1,
+          "l1_ratio": null,
+          "max_iter": 2000,
+          "multi_class": "auto",
+          "n_jobs": null,
+          "penalty": "l2",
+          "random_state": 42,
+          "solver": "lbfgs",
+          "tol": 0.0001,
+          "verbose": 0,
+          "warm_start": false
+        }
+      },
+      "quantile": {
+        "features": [
+          "logM200c_z8",
+          "Nhalo_R8"
+        ],
+        "radius": 8,
+        "family": "GradientBoostingQuantile",
+        "hyperparameters": {
+          "n_estimators": 100,
+          "learning_rate": 0.05,
+          "max_depth": 2,
+          "min_samples_leaf": 20,
+          "random_state": 42
+        },
+        "alphas": [
+          0.16,
+          0.5,
+          0.84
+        ],
+        "cv_pinball": 0.10456181182831081
+      }
+    },
+    "E": {
+      "regression": {
+        "radius": 8,
+        "features": [
+          "logM200c_z8",
+          "logMstar",
+          "SFR",
+          "Ngal_R8"
+        ],
+        "family": "RF_depthNone_leaf30",
+        "cv_score": 0.47783604781448547,
+        "fold_std": 0.0038251373725653455,
+        "hyperparameters": {
+          "bootstrap": true,
+          "ccp_alpha": 0.0,
+          "criterion": "mse",
+          "max_depth": null,
+          "max_features": 1.0,
+          "max_leaf_nodes": null,
+          "max_samples": null,
+          "min_impurity_decrease": 0.0,
+          "min_impurity_split": null,
+          "min_samples_leaf": 30,
+          "min_samples_split": 2,
+          "min_weight_fraction_leaf": 0.0,
+          "n_estimators": 80,
+          "n_jobs": 2,
+          "oob_score": false,
+          "random_state": 42,
+          "verbose": 0,
+          "warm_start": false
+        }
+      },
+      "classification": {
+        "radius": 10,
+        "features": [
+          "logM200c_z8",
+          "logMstar",
+          "SFR",
+          "Ngal_R10"
+        ],
+        "family": "Logistic",
+        "cv_score": 0.0982039606813913,
+        "fold_std": 0.005536596725781438,
+        "hyperparameters": {
+          "C": 1.0,
+          "class_weight": null,
+          "dual": false,
+          "fit_intercept": true,
+          "intercept_scaling": 1,
+          "l1_ratio": null,
+          "max_iter": 2000,
+          "multi_class": "auto",
+          "n_jobs": null,
+          "penalty": "l2",
+          "random_state": 42,
+          "solver": "lbfgs",
+          "tol": 0.0001,
+          "verbose": 0,
+          "warm_start": false
+        }
+      },
+      "quantile": {
+        "features": [
+          "logM200c_z8",
+          "logMstar",
+          "SFR",
+          "Ngal_R8"
+        ],
+        "radius": 8,
+        "family": "GradientBoostingQuantile",
+        "hyperparameters": {
+          "n_estimators": 100,
+          "learning_rate": 0.05,
+          "max_depth": 2,
+          "min_samples_leaf": 50,
+          "random_state": 42
+        },
+        "alphas": [
+          0.16,
+          0.5,
+          0.84
+        ],
+        "cv_pinball": 0.1386975207888949
+      }
+    },
+    "F": {
+      "regression": {
+        "radius": 8,
+        "features": [
+          "logM200c_z8",
+          "logMstar",
+          "SFR",
+          "Nhalo_R8"
+        ],
+        "family": "RF_depthNone_leaf30",
+        "cv_score": 0.3714635470096634,
+        "fold_std": 0.015695784955961172,
+        "hyperparameters": {
+          "bootstrap": true,
+          "ccp_alpha": 0.0,
+          "criterion": "mse",
+          "max_depth": null,
+          "max_features": 1.0,
+          "max_leaf_nodes": null,
+          "max_samples": null,
+          "min_impurity_decrease": 0.0,
+          "min_impurity_split": null,
+          "min_samples_leaf": 30,
+          "min_samples_split": 2,
+          "min_weight_fraction_leaf": 0.0,
+          "n_estimators": 80,
+          "n_jobs": 2,
+          "oob_score": false,
+          "random_state": 42,
+          "verbose": 0,
+          "warm_start": false
+        }
+      },
+      "classification": {
+        "radius": 10,
+        "features": [
+          "logM200c_z8",
+          "logMstar",
+          "SFR",
+          "Nhalo_R10"
+        ],
+        "family": "Logistic",
+        "cv_score": 0.07465132456071367,
+        "fold_std": 0.013896824641623916,
+        "hyperparameters": {
+          "C": 1.0,
+          "class_weight": null,
+          "dual": false,
+          "fit_intercept": true,
+          "intercept_scaling": 1,
+          "l1_ratio": null,
+          "max_iter": 2000,
+          "multi_class": "auto",
+          "n_jobs": null,
+          "penalty": "l2",
+          "random_state": 42,
+          "solver": "lbfgs",
+          "tol": 0.0001,
+          "verbose": 0,
+          "warm_start": false
+        }
+      },
+      "quantile": {
+        "features": [
+          "logM200c_z8",
+          "logMstar",
+          "SFR",
+          "Nhalo_R8"
+        ],
+        "radius": 8,
+        "family": "GradientBoostingQuantile",
+        "hyperparameters": {
+          "n_estimators": 100,
+          "learning_rate": 0.05,
+          "max_depth": 2,
+          "min_samples_leaf": 20,
+          "random_state": 42
+        },
+        "alphas": [
+          0.16,
+          0.5,
+          0.84
+        ],
+        "cv_pinball": 0.10487245119267948
+      }
+    }
+  }
+}
