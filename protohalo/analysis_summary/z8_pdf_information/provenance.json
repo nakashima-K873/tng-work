@@ -1,0 +1,16 @@
+{
+  "initial_logM_cut": [
+    10.8,
+    11.2
+  ],
+  "weighting": "one row per z8 halo",
+  "selection": "rank-balanced top tertile; ties split in original CSV row order",
+  "PDF_BIN_WIDTH": 0.2,
+  "PDF_WINDOW_WIDTH_DEX": 1.0,
+  "PDF_CENTER_STEP_DEX": 0.02,
+  "R5_center": "FoF GroupPos, reused from environment CSV",
+  "sources": {
+    "tng300_z8_M11_descendants.csv": "edb9793a79ad8e7dd239de20fb87af9569ed797efb29c34cc4223062a88dbf32",
+    "tng300_z8_M11_descendants_environment.csv": "62b60a24979f115e9fc61aaa5f28fbf1a05c49aae542749e430d84199f884469"
+  }
+}

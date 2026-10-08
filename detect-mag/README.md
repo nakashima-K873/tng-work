@@ -80,33 +80,48 @@ snapshot cadence need convergence checks before interpreting a physical S/N.
 The actual IllustrisTNG data run must be performed in remote JupyterLab; it has
 not been executed locally.
 
-## Fiducial figures for the paper
+## Theoretical fiducial figures for the paper
 
-Upload `tng_fr_basic_figures.ipynb` separately, beside the main notebook. Run the
-main notebook first and keep `fr_photoz_outputs/`; the figure notebook loads its
-RM layers, galaxy catalog and run configuration without rerunning the forecast.
-Set `MAIN_OUTPUT_DIR` if those outputs are elsewhere.
+Upload `tng_fr_basic_figures.ipynb` beside the main notebook. It reuses only the
+main `fr_photoz_outputs/run_configuration.json` for cosmology and cone geometry;
+it recomputes RM and galaxies directly from full gas snapshots and group catalogs.
+Set `MAIN_OUTPUT_DIR` and `BASE_PATH` if the outputs/mount are elsewhere.
 
-The new notebook writes PDF and 300 dpi PNG figures plus CSV/NPZ data to
-`fr_basic_figures/` (git-ignored):
+This notebook is dedicated to theory: no observing beam, Gaussian smoothing,
+RM noise, photo-z scatter, random thinning, or survey-area extrapolation. Both
+map displays and spectra use unfiltered fields. By default, all valid subhalos
+with at least one star particle are used, without a stellar-mass threshold.
+This maximizes the catalog sample but does not guarantee mass completeness.
 
-- `01_gas_magnetic_slab`: gas surface density, mass-weighted magnetic rms, and
-  signed mass-weighted LOS magnetic field in a periodic slab (default snap 33).
-- `02_density_magnetic_distribution`: full-snapshot, mass-weighted density–B distribution.
+Outputs in `fr_basic_figures/` (git-ignored), as PDF/300 dpi PNG and CSV/NPZ:
+
+- `01_gas_magnetic_projection`: full-box gas surface density, mass-weighted
+  magnetic rms, and signed mass-weighted LOS magnetic field (default snap 33).
+- `02_density_magnetic_distribution`: full-snapshot mass-weighted density–B distribution.
 - `03_lightcone_and_nz`: cone geometry, snapshot assignment, and true galaxy n(z).
-- `04_fiducial_galaxy_maps`: full-density, true-z galaxy maps.
-- `05_fiducial_rm_maps`: signed filtered RM and centered RM squared.
+- `04_fiducial_galaxy_maps`: unsmoothed true-z maps of the selected subhalos.
+- `05_fiducial_rm_maps`: unfiltered signed RM and centered RM squared.
 - `06_fiducial_angular_spectra`: gg, RM²–RM², and RM²–g spectra.
+- `theory_cone_galaxies.csv`, `theory_cone_rm_layers.npz`: independently rebuilt cone.
 
-Gas products require one full gas snapshot, streamed in bounded batches, and
-are cached in `cache/` using settings and input-file metadata. Existing RM grids
-cannot reconstruct gas density or the magnitude of B, so a separate initial
-gas read is necessary. Change `BASE_PATH` if the simulation mount moved.
-`MAKE_GAS_FIGURES=False` produces the remaining figures from main outputs alone.
+All gas cells are streamed without subsampling; by default star-forming gas is
+included. `GAS_SLAB_DEPTH_CMPC=None` uses the full box for the snapshot projection.
+Optional finite slab depth and galaxy thresholds are explicit physical/sample
+choices, not observing-resolution settings. Gas products, memory-mapped RM grids,
+and cone data are cached in `cache/` with parameter and input-file metadata keys.
 
-Galaxy spectra use unsmoothed count maps; only the displayed galaxy maps are
-smoothed. The raw gg spectra include shot noise; a separately labeled subtraction
-is also shown. All spectra are finite-patch measurements without observational
-noise or survey-area extrapolation. Cross spectra retain their signs. Gas magnetic
-projections are mass-weighted and are distinct from electron-weighted RM.
-The cone plot uses saved angular pixel centers, not exact continuous galaxy positions.
+`RM_GRID_N=512` and `THEORY_MAP_N=512` specify numerical grids. A three-component
+float64 RM grid occupies about 3 GiB on disk per snapshot, and is processed one
+snapshot at a time. The initial run reads every required full gas snapshot;
+completed caches avoid recomputation. `MAKE_GAS_FIGURES=False` skips only the
+snapshot gas figures, not construction of the theoretical RM cone.
+
+Full-cell use still employs cell-center NGP deposition, linear interpolation and
+nearest-snapshot cone geometry, rather than exact Voronoi ray tracing. Grid size,
+angular pixels and LOS integration steps require convergence checks. The spectra
+extend to numerical grid/pixel limits; high-L modes can be affected by deposition
+and aliasing, especially after squaring RM. No observational L cutoff is imposed.
+Raw gg includes shot noise; a separately labeled subtraction is also shown.
+Cross spectra retain their signs. Magnetic projections are mass-weighted and
+are distinct from electron-weighted RM. Cone positions use original continuous
+subhalo positions rather than the main notebook's saved coarse pixels.
