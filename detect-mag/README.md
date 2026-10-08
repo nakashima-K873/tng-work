@@ -79,3 +79,34 @@ snapshot cadence need convergence checks before interpreting a physical S/N.
 
 The actual IllustrisTNG data run must be performed in remote JupyterLab; it has
 not been executed locally.
+
+## Fiducial figures for the paper
+
+Upload `tng_fr_basic_figures.ipynb` separately, beside the main notebook. Run the
+main notebook first and keep `fr_photoz_outputs/`; the figure notebook loads its
+RM layers, galaxy catalog and run configuration without rerunning the forecast.
+Set `MAIN_OUTPUT_DIR` if those outputs are elsewhere.
+
+The new notebook writes PDF and 300 dpi PNG figures plus CSV/NPZ data to
+`fr_basic_figures/` (git-ignored):
+
+- `01_gas_magnetic_slab`: gas surface density, mass-weighted magnetic rms, and
+  signed mass-weighted LOS magnetic field in a periodic slab (default snap 33).
+- `02_density_magnetic_distribution`: full-snapshot, mass-weighted density–B distribution.
+- `03_lightcone_and_nz`: cone geometry, snapshot assignment, and true galaxy n(z).
+- `04_fiducial_galaxy_maps`: full-density, true-z galaxy maps.
+- `05_fiducial_rm_maps`: signed filtered RM and centered RM squared.
+- `06_fiducial_angular_spectra`: gg, RM²–RM², and RM²–g spectra.
+
+Gas products require one full gas snapshot, streamed in bounded batches, and
+are cached in `cache/` using settings and input-file metadata. Existing RM grids
+cannot reconstruct gas density or the magnitude of B, so a separate initial
+gas read is necessary. Change `BASE_PATH` if the simulation mount moved.
+`MAKE_GAS_FIGURES=False` produces the remaining figures from main outputs alone.
+
+Galaxy spectra use unsmoothed count maps; only the displayed galaxy maps are
+smoothed. The raw gg spectra include shot noise; a separately labeled subtraction
+is also shown. All spectra are finite-patch measurements without observational
+noise or survey-area extrapolation. Cross spectra retain their signs. Gas magnetic
+projections are mass-weighted and are distinct from electron-weighted RM.
+The cone plot uses saved angular pixel centers, not exact continuous galaxy positions.
