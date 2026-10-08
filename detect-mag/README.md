@@ -107,13 +107,17 @@ Outputs in `fr_basic_figures/` (git-ignored), as PDF/300 dpi PNG and CSV/NPZ:
 All gas cells are streamed without subsampling; by default star-forming gas is
 included. `GAS_SLAB_DEPTH_CMPC=None` uses the full box for the snapshot projection.
 Optional finite slab depth and galaxy thresholds are explicit physical/sample
-choices, not observing-resolution settings. Gas products, memory-mapped RM grids,
-and cone data are cached in `cache/` with parameter and input-file metadata keys.
+choices, not observing-resolution settings. Gas products, per-snapshot cone projections, and completed cone data are cached
+in `cache/` with parameter and input-file metadata keys. Large 3D grids are
+temporary working files, not newly retained caches.
 
 `RM_GRID_N=512` and `THEORY_MAP_N=512` specify numerical grids. A three-component
 float64 RM grid occupies about 3 GiB on disk per snapshot, and is processed one
-snapshot at a time. The initial run reads every required full gas snapshot;
-completed caches avoid recomputation. `MAKE_GAS_FIGURES=False` skips only the
+snapshot at a time and removed after projection, including on ordinary exceptions.
+Each snapshot has a small completed projection checkpoint, so an interrupted run
+restarts at the first incomplete snapshot. Old completed 3D grids can still be
+read in place, but can be removed to reclaim storage. The initial run reads every
+required full gas snapshot; completed projection caches avoid recomputation. `MAKE_GAS_FIGURES=False` skips only the
 snapshot gas figures, not construction of the theoretical RM cone.
 
 Full-cell use still employs cell-center NGP deposition, linear interpolation and
@@ -163,6 +167,39 @@ Outputs in `fr_coeval_to_lightcone/` (git-ignored):
 
 PDF/PNG figures, CSV correlation values and JSON provenance are saved. Complete
 2D projections are cached in `cache/`; temporary 3D memory-mapped work grids
-(~3.73 GiB for the default 500³ mesh) are removed after successful projection.
+(~3.73 GiB for the default 500³ mesh) are removed after projection or ordinary exceptions. A hard kernel/server crash
+can leave work files behind; stop kernels before cleaning them.
 All gas chunks/cells are read on the initial run. `RUN_LIGHTCONE=False` runs the
 coeval and crop stages alone. No observing beam/noise or angular smoothing is used.
+
+## Cache budget and remote cleanup
+
+All three notebooks have `CACHE_MAX_GIB=8`, `CACHE_FREE_RESERVE_GIB=1`, and
+`CACHE_MAX_PERSISTENT_GIB=1` in their configuration cells. These are configurable
+local limits, not a statement of the TNG account quota. The total budget includes
+temporary grids. Writes are checked conservatively using uncompressed sizes;
+over-budget writes stop without evicting existing files. Output directories and
+other account files are outside this budget. Avoid simultaneous cache-producing
+notebook runs: capacity checks are not a cross-process reservation system.
+Full gas usage, numerical grids and float64 accumulation are unchanged. Completed
+NPZ caches are written atomically. The main forecast reads legacy caches in place
+instead of copying them. A missing 3D grid is rebuilt only if its corresponding
+projection/cone checkpoint is also missing or incompatible.
+
+Upload `manage_cache.py` along with the updated notebooks. Stop kernels using the
+cache before deletion (an active `.tmp.npy` may be the current computation, not
+an abandoned file). On the TNG server:
+
+```bash
+python ~/tng-work/detect-mag/manage_cache.py
+python ~/tng-work/detect-mag/manage_cache.py --delete
+```
+
+The first command only lists files. The second deletes only known 3D intermediates
+larger than 1 GiB: `theory_rm_grid_*.npy`, `coeval_work_*.tmp.npy`, and
+`theory_work_*.tmp.npy`. It preserves projection/cone NPZs, catalogues and science
+outputs, and does not follow symlinks. Unknown large files are listed but retained.
+Deleting a grid sacrifices reuse for a new cone geometry, but not the existing
+completed cone or projection results. Ordinary exceptions clean up newly created
+work files; hard crashes still require manual cleanup. One default coeval work
+grid needs about 3.73 GiB; one default theory work grid needs 3 GiB.
