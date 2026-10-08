@@ -158,7 +158,8 @@ independent sample counts or error estimates.
 
 Outputs in `fr_coeval_to_lightcone/` (git-ignored):
 
-- `01_coeval_fig1_fields`: four full-box fields at z=0.
+- `01_coeval_fig1_fields`: four full-box fields at z=0 (zero pixels use the darkest color).
+- `01b_fig1_definition_controls` and `fig1_definition_diagnostics.csv`: same-catalog NGP/CIC and signed LOS mean/sum controls, using cached projections and the group catalogue without rereading gas. The sum hypothesis does not establish the paper normalization or alter RM.
 - `02_coeval_fig3_correlations`: real-space coeval curves at twelve redshifts.
 - `03_tracer_and_assignment_controls`: fixed-epoch tracer/deposition comparisons.
 - `04_finite_window_control`: full box versus finite crop.
