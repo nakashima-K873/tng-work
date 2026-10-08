@@ -9,10 +9,10 @@
   "calibration": "raw classifier probabilities; no post-hoc recalibration",
   "sample_selection": "10.8 < logM200c_z8 < 11.2; finite IDs and target; nonnegative host IDs",
   "inputs": {
-    "/Users/clab/research/tng-work/protohalo/data/tng300_z8_M11_descendants.csv": {
+    "/home/tnguser/tng-work/protohalo/data/tng300_z8_M11_descendants.csv": {
       "sha256": "edb9793a79ad8e7dd239de20fb87af9569ed797efb29c34cc4223062a88dbf32"
     },
-    "/Users/clab/research/tng-work/protohalo/data/tng300_z8_M11_descendants_environment.csv": {
+    "/home/tnguser/tng-work/protohalo/data/tng300_z8_M11_descendants_environment.csv": {
       "sha256": "62b60a24979f115e9fc61aaa5f28fbf1a05c49aae542749e430d84199f884469"
     }
   },
@@ -26,12 +26,11 @@
           ],
           "family": "Linear",
           "cv_score": 0.670719249052213,
-          "fold_std": 0.012009675221409293,
+          "fold_std": 0.012009675221409262,
           "hyperparameters": {
             "copy_X": true,
             "fit_intercept": true,
             "n_jobs": null,
-            "normalize": false,
             "positive": false
           }
         },
@@ -41,8 +40,8 @@
             "logM200c_z8"
           ],
           "family": "Logistic",
-          "cv_score": 0.23379568019612898,
-          "fold_std": 0.001941383432576611,
+          "cv_score": 0.23379568019612904,
+          "fold_std": 0.0019413834325766176,
           "hyperparameters": {
             "C": 1.0,
             "class_weight": null,
@@ -92,12 +91,11 @@
           ],
           "family": "Linear",
           "cv_score": 0.6706744658746722,
-          "fold_std": 0.010975881722759658,
+          "fold_std": 0.010975881722759647,
           "hyperparameters": {
             "copy_X": true,
             "fit_intercept": true,
             "n_jobs": null,
-            "normalize": false,
             "positive": false
           }
         },
@@ -161,17 +159,16 @@
           ],
           "family": "RF_depthNone_leaf30",
           "cv_score": 0.5181953873122906,
-          "fold_std": 0.023075849880765366,
+          "fold_std": 0.023075849880765446,
           "hyperparameters": {
             "bootstrap": true,
             "ccp_alpha": 0.0,
-            "criterion": "mse",
+            "criterion": "squared_error",
             "max_depth": null,
             "max_features": 1.0,
             "max_leaf_nodes": null,
             "max_samples": null,
             "min_impurity_decrease": 0.0,
-            "min_impurity_split": null,
             "min_samples_leaf": 30,
             "min_samples_split": 2,
             "min_weight_fraction_leaf": 0.0,
@@ -240,18 +237,17 @@
             "Nhalo_R10"
           ],
           "family": "RF_depthNone_leaf30",
-          "cv_score": 0.4126554031797253,
-          "fold_std": 0.01339273957372953,
+          "cv_score": 0.4126554031797254,
+          "fold_std": 0.01339273957372948,
           "hyperparameters": {
             "bootstrap": true,
             "ccp_alpha": 0.0,
-            "criterion": "mse",
+            "criterion": "squared_error",
             "max_depth": null,
             "max_features": 1.0,
             "max_leaf_nodes": null,
             "max_samples": null,
             "min_impurity_decrease": 0.0,
-            "min_impurity_split": null,
             "min_samples_leaf": 30,
             "min_samples_split": 2,
             "min_weight_fraction_leaf": 0.0,
@@ -271,7 +267,7 @@
           ],
           "family": "Logistic",
           "cv_score": 0.1128417429768166,
-          "fold_std": 0.010088466818495083,
+          "fold_std": 0.01008846681849509,
           "hyperparameters": {
             "C": 1.0,
             "class_weight": null,
@@ -309,7 +305,7 @@
             0.5,
             0.84
           ],
-          "cv_pinball": 0.11554290505970971
+          "cv_pinball": 0.11555409103659037
         }
       },
       "E": {
@@ -322,18 +318,17 @@
             "Ngal_R15"
           ],
           "family": "RF_depthNone_leaf30",
-          "cv_score": 0.5200706258376497,
-          "fold_std": 0.022984480118397165,
+          "cv_score": 0.5200706258376496,
+          "fold_std": 0.02298448011839711,
           "hyperparameters": {
             "bootstrap": true,
             "ccp_alpha": 0.0,
-            "criterion": "mse",
+            "criterion": "squared_error",
             "max_depth": null,
             "max_features": 1.0,
             "max_leaf_nodes": null,
             "max_samples": null,
             "min_impurity_decrease": 0.0,
-            "min_impurity_split": null,
             "min_samples_leaf": 30,
             "min_samples_split": 2,
             "min_weight_fraction_leaf": 0.0,
@@ -408,18 +403,17 @@
             "Nhalo_R10"
           ],
           "family": "RF_depthNone_leaf30",
-          "cv_score": 0.41169253187480187,
-          "fold_std": 0.012908368674673284,
+          "cv_score": 0.41169253187480176,
+          "fold_std": 0.012908368674673272,
           "hyperparameters": {
             "bootstrap": true,
             "ccp_alpha": 0.0,
-            "criterion": "mse",
+            "criterion": "squared_error",
             "max_depth": null,
             "max_features": 1.0,
             "max_leaf_nodes": null,
             "max_samples": null,
             "min_impurity_decrease": 0.0,
-            "min_impurity_split": null,
             "min_samples_leaf": 30,
             "min_samples_split": 2,
             "min_weight_fraction_leaf": 0.0,
@@ -481,7 +475,7 @@
             0.5,
             0.84
           ],
-          "cv_pinball": 0.11558913688004654
+          "cv_pinball": 0.11562972105076298
         }
       }
     },
@@ -499,7 +493,6 @@
             "copy_X": true,
             "fit_intercept": true,
             "n_jobs": null,
-            "normalize": false,
             "positive": false
           }
         },
@@ -560,12 +553,11 @@
           ],
           "family": "Linear",
           "cv_score": 0.5371957805250988,
-          "fold_std": 0.0027956178462725904,
+          "fold_std": 0.0027956178462726507,
           "hyperparameters": {
             "copy_X": true,
             "fit_intercept": true,
             "n_jobs": null,
-            "normalize": false,
             "positive": false
           }
         },
@@ -577,8 +569,8 @@
             "SFR"
           ],
           "family": "Logistic",
-          "cv_score": 0.11943385035281147,
-          "fold_std": 0.005200437139685293,
+          "cv_score": 0.1194338503528114,
+          "fold_std": 0.005200437139685463,
           "hyperparameters": {
             "C": 1.0,
             "class_weight": null,
@@ -628,18 +620,17 @@
             "Ngal_R8"
           ],
           "family": "RF_depthNone_leaf30",
-          "cv_score": 0.4772079805210985,
-          "fold_std": 0.006813122145261636,
+          "cv_score": 0.4772079805210984,
+          "fold_std": 0.006813122145261731,
           "hyperparameters": {
             "bootstrap": true,
             "ccp_alpha": 0.0,
-            "criterion": "mse",
+            "criterion": "squared_error",
             "max_depth": null,
             "max_features": 1.0,
             "max_leaf_nodes": null,
             "max_samples": null,
             "min_impurity_decrease": 0.0,
-            "min_impurity_split": null,
             "min_samples_leaf": 30,
             "min_samples_split": 2,
             "min_weight_fraction_leaf": 0.0,
@@ -709,17 +700,16 @@
           ],
           "family": "RF_depthNone_leaf30",
           "cv_score": 0.37166863449608983,
-          "fold_std": 0.016870635137333254,
+          "fold_std": 0.01687063513733317,
           "hyperparameters": {
             "bootstrap": true,
             "ccp_alpha": 0.0,
-            "criterion": "mse",
+            "criterion": "squared_error",
             "max_depth": null,
             "max_features": 1.0,
             "max_leaf_nodes": null,
             "max_samples": null,
             "min_impurity_decrease": 0.0,
-            "min_impurity_split": null,
             "min_samples_leaf": 30,
             "min_samples_split": 2,
             "min_weight_fraction_leaf": 0.0,
@@ -777,7 +767,7 @@
             0.5,
             0.84
           ],
-          "cv_pinball": 0.10456181182831081
+          "cv_pinball": 0.10456338213423695
         }
       },
       "E": {
@@ -791,17 +781,16 @@
           ],
           "family": "RF_depthNone_leaf30",
           "cv_score": 0.47783604781448547,
-          "fold_std": 0.0038251373725653455,
+          "fold_std": 0.003825137372565264,
           "hyperparameters": {
             "bootstrap": true,
             "ccp_alpha": 0.0,
-            "criterion": "mse",
+            "criterion": "squared_error",
             "max_depth": null,
             "max_features": 1.0,
             "max_leaf_nodes": null,
             "max_samples": null,
             "min_impurity_decrease": 0.0,
-            "min_impurity_split": null,
             "min_samples_leaf": 30,
             "min_samples_split": 2,
             "min_weight_fraction_leaf": 0.0,
@@ -877,17 +866,16 @@
           ],
           "family": "RF_depthNone_leaf30",
           "cv_score": 0.3714635470096634,
-          "fold_std": 0.015695784955961172,
+          "fold_std": 0.015695784955961155,
           "hyperparameters": {
             "bootstrap": true,
             "ccp_alpha": 0.0,
-            "criterion": "mse",
+            "criterion": "squared_error",
             "max_depth": null,
             "max_features": 1.0,
             "max_leaf_nodes": null,
             "max_samples": null,
             "min_impurity_decrease": 0.0,
-            "min_impurity_split": null,
             "min_samples_leaf": 30,
             "min_samples_split": 2,
             "min_weight_fraction_leaf": 0.0,
@@ -908,8 +896,8 @@
             "Nhalo_R10"
           ],
           "family": "Logistic",
-          "cv_score": 0.07465132456071367,
-          "fold_std": 0.013896824641623916,
+          "cv_score": 0.07465132456071369,
+          "fold_std": 0.01389682464162388,
           "hyperparameters": {
             "C": 1.0,
             "class_weight": null,
@@ -949,7 +937,7 @@
             0.5,
             0.84
           ],
-          "cv_pinball": 0.10487245119267948
+          "cv_pinball": 0.1048747589195536
         }
       }
     }
@@ -980,7 +968,6 @@
             "copy_X": true,
             "fit_intercept": true,
             "n_jobs": null,
-            "normalize": false,
             "positive": false
           },
           "cv_score": 0.670719249052213
@@ -994,13 +981,12 @@
           "hyperparameters": {
             "bootstrap": true,
             "ccp_alpha": 0.0,
-            "criterion": "mse",
+            "criterion": "squared_error",
             "max_depth": 6,
             "max_features": 1.0,
             "max_leaf_nodes": null,
             "max_samples": null,
             "min_impurity_decrease": 0.0,
-            "min_impurity_split": null,
             "min_samples_leaf": 10,
             "min_samples_split": 2,
             "min_weight_fraction_leaf": 0.0,
@@ -1011,7 +997,7 @@
             "verbose": 0,
             "warm_start": false
           },
-          "cv_score": 0.6772616522042797
+          "cv_score": 0.6772616522042796
         },
         "classification_Dummy": {
           "radius": null,
@@ -1049,7 +1035,7 @@
             "verbose": 0,
             "warm_start": false
           },
-          "cv_score": 0.23379568019612898
+          "cv_score": 0.23379568019612904
         },
         "classification_RandomForest": {
           "radius": null,
@@ -1067,7 +1053,6 @@
             "max_leaf_nodes": null,
             "max_samples": null,
             "min_impurity_decrease": 0.0,
-            "min_impurity_split": null,
             "min_samples_leaf": 10,
             "min_samples_split": 2,
             "min_weight_fraction_leaf": 0.0,
@@ -1109,7 +1094,6 @@
             "copy_X": true,
             "fit_intercept": true,
             "n_jobs": null,
-            "normalize": false,
             "positive": false
           },
           "cv_score": 0.6706744658746722
@@ -1125,13 +1109,12 @@
           "hyperparameters": {
             "bootstrap": true,
             "ccp_alpha": 0.0,
-            "criterion": "mse",
+            "criterion": "squared_error",
             "max_depth": 6,
             "max_features": 1.0,
             "max_leaf_nodes": null,
             "max_samples": null,
             "min_impurity_decrease": 0.0,
-            "min_impurity_split": null,
             "min_samples_leaf": 10,
             "min_samples_split": 2,
             "min_weight_fraction_leaf": 0.0,
@@ -1184,7 +1167,7 @@
             "verbose": 0,
             "warm_start": false
           },
-          "cv_score": 0.23362776181950226
+          "cv_score": 0.2336277618195022
         },
         "classification_RandomForest": {
           "radius": null,
@@ -1204,7 +1187,6 @@
             "max_leaf_nodes": null,
             "max_samples": null,
             "min_impurity_decrease": 0.0,
-            "min_impurity_split": null,
             "min_samples_leaf": 10,
             "min_samples_split": 2,
             "min_weight_fraction_leaf": 0.0,
@@ -1244,7 +1226,6 @@
             "copy_X": true,
             "fit_intercept": true,
             "n_jobs": null,
-            "normalize": false,
             "positive": false
           },
           "cv_score": 0.5319603060501924
@@ -1259,13 +1240,12 @@
           "hyperparameters": {
             "bootstrap": true,
             "ccp_alpha": 0.0,
-            "criterion": "mse",
+            "criterion": "squared_error",
             "max_depth": null,
             "max_features": 1.0,
             "max_leaf_nodes": null,
             "max_samples": null,
             "min_impurity_decrease": 0.0,
-            "min_impurity_split": null,
             "min_samples_leaf": 30,
             "min_samples_split": 2,
             "min_weight_fraction_leaf": 0.0,
@@ -1335,7 +1315,6 @@
             "max_leaf_nodes": null,
             "max_samples": null,
             "min_impurity_decrease": 0.0,
-            "min_impurity_split": null,
             "min_samples_leaf": 30,
             "min_samples_split": 2,
             "min_weight_fraction_leaf": 0.0,
@@ -1375,7 +1354,6 @@
             "copy_X": true,
             "fit_intercept": true,
             "n_jobs": null,
-            "normalize": false,
             "positive": false
           },
           "cv_score": 0.43865841504872644
@@ -1390,13 +1368,12 @@
           "hyperparameters": {
             "bootstrap": true,
             "ccp_alpha": 0.0,
-            "criterion": "mse",
+            "criterion": "squared_error",
             "max_depth": null,
             "max_features": 1.0,
             "max_leaf_nodes": null,
             "max_samples": null,
             "min_impurity_decrease": 0.0,
-            "min_impurity_split": null,
             "min_samples_leaf": 30,
             "min_samples_split": 2,
             "min_weight_fraction_leaf": 0.0,
@@ -1407,7 +1384,7 @@
             "verbose": 0,
             "warm_start": false
           },
-          "cv_score": 0.4126554031797253
+          "cv_score": 0.4126554031797254
         },
         "classification_Dummy": {
           "radius": 1,
@@ -1466,7 +1443,6 @@
             "max_leaf_nodes": null,
             "max_samples": null,
             "min_impurity_decrease": 0.0,
-            "min_impurity_split": null,
             "min_samples_leaf": 30,
             "min_samples_split": 2,
             "min_weight_fraction_leaf": 0.0,
@@ -1510,7 +1486,6 @@
             "copy_X": true,
             "fit_intercept": true,
             "n_jobs": null,
-            "normalize": false,
             "positive": false
           },
           "cv_score": 0.5326937429370514
@@ -1527,13 +1502,12 @@
           "hyperparameters": {
             "bootstrap": true,
             "ccp_alpha": 0.0,
-            "criterion": "mse",
+            "criterion": "squared_error",
             "max_depth": null,
             "max_features": 1.0,
             "max_leaf_nodes": null,
             "max_samples": null,
             "min_impurity_decrease": 0.0,
-            "min_impurity_split": null,
             "min_samples_leaf": 30,
             "min_samples_split": 2,
             "min_weight_fraction_leaf": 0.0,
@@ -1544,7 +1518,7 @@
             "verbose": 0,
             "warm_start": false
           },
-          "cv_score": 0.5200706258376497
+          "cv_score": 0.5200706258376496
         },
         "classification_Dummy": {
           "radius": 1,
@@ -1609,7 +1583,6 @@
             "max_leaf_nodes": null,
             "max_samples": null,
             "min_impurity_decrease": 0.0,
-            "min_impurity_split": null,
             "min_samples_leaf": 30,
             "min_samples_split": 2,
             "min_weight_fraction_leaf": 0.0,
@@ -1653,7 +1626,6 @@
             "copy_X": true,
             "fit_intercept": true,
             "n_jobs": null,
-            "normalize": false,
             "positive": false
           },
           "cv_score": 0.4390850341893959
@@ -1670,13 +1642,12 @@
           "hyperparameters": {
             "bootstrap": true,
             "ccp_alpha": 0.0,
-            "criterion": "mse",
+            "criterion": "squared_error",
             "max_depth": null,
             "max_features": 1.0,
             "max_leaf_nodes": null,
             "max_samples": null,
             "min_impurity_decrease": 0.0,
-            "min_impurity_split": null,
             "min_samples_leaf": 30,
             "min_samples_split": 2,
             "min_weight_fraction_leaf": 0.0,
@@ -1687,7 +1658,7 @@
             "verbose": 0,
             "warm_start": false
           },
-          "cv_score": 0.41169253187480187
+          "cv_score": 0.41169253187480176
         },
         "classification_Dummy": {
           "radius": 1,
@@ -1752,7 +1723,6 @@
             "max_leaf_nodes": null,
             "max_samples": null,
             "min_impurity_decrease": 0.0,
-            "min_impurity_split": null,
             "min_samples_leaf": 30,
             "min_samples_split": 2,
             "min_weight_fraction_leaf": 0.0,
@@ -1763,7 +1733,7 @@
             "verbose": 0,
             "warm_start": false
           },
-          "cv_score": 0.11601971764861883
+          "cv_score": 0.11601971764861885
         }
       }
     },
@@ -1792,7 +1762,6 @@
             "copy_X": true,
             "fit_intercept": true,
             "n_jobs": null,
-            "normalize": false,
             "positive": false
           },
           "cv_score": 0.5354985413760167
@@ -1806,13 +1775,12 @@
           "hyperparameters": {
             "bootstrap": true,
             "ccp_alpha": 0.0,
-            "criterion": "mse",
+            "criterion": "squared_error",
             "max_depth": null,
             "max_features": 1.0,
             "max_leaf_nodes": null,
             "max_samples": null,
             "min_impurity_decrease": 0.0,
-            "min_impurity_split": null,
             "min_samples_leaf": 30,
             "min_samples_split": 2,
             "min_weight_fraction_leaf": 0.0,
@@ -1879,7 +1847,6 @@
             "max_leaf_nodes": null,
             "max_samples": null,
             "min_impurity_decrease": 0.0,
-            "min_impurity_split": null,
             "min_samples_leaf": 30,
             "min_samples_split": 2,
             "min_weight_fraction_leaf": 0.0,
@@ -1921,7 +1888,6 @@
             "copy_X": true,
             "fit_intercept": true,
             "n_jobs": null,
-            "normalize": false,
             "positive": false
           },
           "cv_score": 0.5371957805250988
@@ -1937,13 +1903,12 @@
           "hyperparameters": {
             "bootstrap": true,
             "ccp_alpha": 0.0,
-            "criterion": "mse",
+            "criterion": "squared_error",
             "max_depth": null,
             "max_features": 1.0,
             "max_leaf_nodes": null,
             "max_samples": null,
             "min_impurity_decrease": 0.0,
-            "min_impurity_split": null,
             "min_samples_leaf": 30,
             "min_samples_split": 2,
             "min_weight_fraction_leaf": 0.0,
@@ -1954,7 +1919,7 @@
             "verbose": 0,
             "warm_start": false
           },
-          "cv_score": 0.5426735583017503
+          "cv_score": 0.5426735583017502
         },
         "classification_Dummy": {
           "radius": null,
@@ -1996,7 +1961,7 @@
             "verbose": 0,
             "warm_start": false
           },
-          "cv_score": 0.11943385035281147
+          "cv_score": 0.11943385035281139
         },
         "classification_RandomForest": {
           "radius": null,
@@ -2016,7 +1981,6 @@
             "max_leaf_nodes": null,
             "max_samples": null,
             "min_impurity_decrease": 0.0,
-            "min_impurity_split": null,
             "min_samples_leaf": 30,
             "min_samples_split": 2,
             "min_weight_fraction_leaf": 0.0,
@@ -2056,7 +2020,6 @@
             "copy_X": true,
             "fit_intercept": true,
             "n_jobs": null,
-            "normalize": false,
             "positive": false
           },
           "cv_score": 0.4797768628109833
@@ -2071,13 +2034,12 @@
           "hyperparameters": {
             "bootstrap": true,
             "ccp_alpha": 0.0,
-            "criterion": "mse",
+            "criterion": "squared_error",
             "max_depth": null,
             "max_features": 1.0,
             "max_leaf_nodes": null,
             "max_samples": null,
             "min_impurity_decrease": 0.0,
-            "min_impurity_split": null,
             "min_samples_leaf": 30,
             "min_samples_split": 2,
             "min_weight_fraction_leaf": 0.0,
@@ -2088,7 +2050,7 @@
             "verbose": 0,
             "warm_start": false
           },
-          "cv_score": 0.4772079805210985
+          "cv_score": 0.4772079805210984
         },
         "classification_Dummy": {
           "radius": 1,
@@ -2147,7 +2109,6 @@
             "max_leaf_nodes": null,
             "max_samples": null,
             "min_impurity_decrease": 0.0,
-            "min_impurity_split": null,
             "min_samples_leaf": 30,
             "min_samples_split": 2,
             "min_weight_fraction_leaf": 0.0,
@@ -2187,7 +2148,6 @@
             "copy_X": true,
             "fit_intercept": true,
             "n_jobs": null,
-            "normalize": false,
             "positive": false
           },
           "cv_score": 0.3788125286928837
@@ -2202,13 +2162,12 @@
           "hyperparameters": {
             "bootstrap": true,
             "ccp_alpha": 0.0,
-            "criterion": "mse",
+            "criterion": "squared_error",
             "max_depth": null,
             "max_features": 1.0,
             "max_leaf_nodes": null,
             "max_samples": null,
             "min_impurity_decrease": 0.0,
-            "min_impurity_split": null,
             "min_samples_leaf": 30,
             "min_samples_split": 2,
             "min_weight_fraction_leaf": 0.0,
@@ -2278,7 +2237,6 @@
             "max_leaf_nodes": null,
             "max_samples": null,
             "min_impurity_decrease": 0.0,
-            "min_impurity_split": null,
             "min_samples_leaf": 30,
             "min_samples_split": 2,
             "min_weight_fraction_leaf": 0.0,
@@ -2322,7 +2280,6 @@
             "copy_X": true,
             "fit_intercept": true,
             "n_jobs": null,
-            "normalize": false,
             "positive": false
           },
           "cv_score": 0.4800862834940949
@@ -2339,13 +2296,12 @@
           "hyperparameters": {
             "bootstrap": true,
             "ccp_alpha": 0.0,
-            "criterion": "mse",
+            "criterion": "squared_error",
             "max_depth": null,
             "max_features": 1.0,
             "max_leaf_nodes": null,
             "max_samples": null,
             "min_impurity_decrease": 0.0,
-            "min_impurity_split": null,
             "min_samples_leaf": 30,
             "min_samples_split": 2,
             "min_weight_fraction_leaf": 0.0,
@@ -2421,7 +2377,6 @@
             "max_leaf_nodes": null,
             "max_samples": null,
             "min_impurity_decrease": 0.0,
-            "min_impurity_split": null,
             "min_samples_leaf": 30,
             "min_samples_split": 2,
             "min_weight_fraction_leaf": 0.0,
@@ -2465,7 +2420,6 @@
             "copy_X": true,
             "fit_intercept": true,
             "n_jobs": null,
-            "normalize": false,
             "positive": false
           },
           "cv_score": 0.3789623376621833
@@ -2482,13 +2436,12 @@
           "hyperparameters": {
             "bootstrap": true,
             "ccp_alpha": 0.0,
-            "criterion": "mse",
+            "criterion": "squared_error",
             "max_depth": null,
             "max_features": 1.0,
             "max_leaf_nodes": null,
             "max_samples": null,
             "min_impurity_decrease": 0.0,
-            "min_impurity_split": null,
             "min_samples_leaf": 30,
             "min_samples_split": 2,
             "min_weight_fraction_leaf": 0.0,
@@ -2564,7 +2517,6 @@
             "max_leaf_nodes": null,
             "max_samples": null,
             "min_impurity_decrease": 0.0,
-            "min_impurity_split": null,
             "min_samples_leaf": 30,
             "min_samples_split": 2,
             "min_weight_fraction_leaf": 0.0,
@@ -2581,14 +2533,14 @@
     }
   },
   "versions": {
-    "python": "3.8.8",
-    "numpy": "1.20.1",
-    "pandas": "1.2.4",
-    "scipy": "1.6.2",
-    "sklearn": "0.24.1"
+    "python": "3.11.4",
+    "numpy": "1.24.3",
+    "pandas": "2.0.3",
+    "scipy": "1.11.1",
+    "sklearn": "1.3.0"
   },
-  "elapsed_seconds": 84.19462609291077,
-  "output_dir": "/Users/clab/research/tng-work/protohalo/analysis_summary/descendant_predictive_performance",
+  "elapsed_seconds": 470.38467812538147,
+  "output_dir": "/home/tnguser/tng-work/protohalo/analysis_summary/descendant_predictive_performance",
   "samples": {
     "halo_level": {
       "N_train": 2534,
