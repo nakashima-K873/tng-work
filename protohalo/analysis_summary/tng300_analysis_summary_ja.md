@@ -19,7 +19,7 @@
 
 ## 各ノートブックの手法と結果
 
-### 1. tng300_z8_descendant_mass.ipynb
+### 1. 01_tng300_z8_descendant_mass.ipynb
 
 初期FoFハローの中心subhaloをSubLinkでz=0へ対応付け、snapshot-99のSubhaloGrNrでFoFホストへ変換する。現行コードはonlyMDBのcutoutから唯一のsnapshot-99行を取得する実装であり、DescendantIDを逐次歩くという一部Markdownの説明とは異なる。
 
@@ -36,7 +36,7 @@ P(M0>10^14 Msun)=36.53%であり、この初期質量のハローすべてが銀
 
 3,099初期ハローは1,761の独立した最終FoFホストに対応する。533ホストに複数の初期ハローが入り、最大33個が同じホストへ入る。既存CSVから重複を除いて追加集計すると、最終ホストの中央値は2.40×10^13 Msun、銀河団質量>10^14 Msunの割合は14.99%、>10^15 Msunは0.17%となる。これは初期ハローを1個選んだ場合の確率36.53%、2.36%とは重み付けが異なる。また、独立ホストのサンプルも今回の初期選択に対応するホストに限定され、z=0全ホストの質量関数ではない。
 
-### 2. tng300_descendant_with_galaxy_properties.ipynb
+### 2. 02_tng300_descendant_with_galaxy_properties.ipynb
 
 中心銀河の束縛星質量とSubhaloSFRを取得する。周辺銀河数Ngalは、中心銀河位置から5 cMpc以内、Mstar>10^8 Msun、SubhaloFlag=1の銀河を数え、中心自身を除く。順位でほぼ等人数の3群に分け、各群の最終質量分布を比較する。
 
@@ -53,7 +53,7 @@ P(M0>10^14 Msun)=36.53%であり、この初期質量のハローすべてが銀
 
 補助的なRandom Forestでは、同じ最終ホストが訓練・評価の両方に入らないようGroupID_z0で分割。評価RMSEはM8のみ0.650 dex、M8+星質量+SFRで0.627 dex、Ngalをさらに加えると0.560 dex。
 
-### 3. tng300_descendant_with_environment.ipynb
+### 3. 03_tng300_descendant_with_environment.ipynb
 
 FoFのGroupPosを中心に、半径1,2,3,5,8,10,15,20 cMpcの球内で、銀河数・銀河星質量総和・近隣ハロー数・近隣ハロー質量総和を測る。銀河はMstar>10^8 Msun、近隣ハローはM200c>10^9.5 Msun。対象中心銀河／対象FoF自身をIDで除き、周期KD-treeで集計する。銀河過密度は全箱の平均密度で規格化する。
 
@@ -72,7 +72,7 @@ Ngalのρは10 cMpcで0.6464、15 cMpcで0.6469とほぼ同じ。銀河環境に
 
 Grouped holdoutのRandom ForestではRMSEがM8のみ0.651 dex、Ngalを追加して0.531 dex、周辺星質量総和も加えて0.507 dexとなる。半径の選択自体は全標本で行われており、完全に独立した最適化・性能検証ではない。
 
-### 4. tng300_environment_robustness.ipynb
+### 4. 04_tng300_environment_robustness.ipynb
 
 ハロー閾値log10 M200c=9.5,10,10.5,11、銀河閾値log10 Mstar=7.5,8,8.5,9を比較。さらに投影半径2,3,5,8,10,15 cMpc、視線全長10,20,40,80 cMpcの円柱内で銀河数を数える。視線はシミュレーションz軸で、|Δz|<Llos/2を使う。
 
@@ -82,7 +82,7 @@ Grouped holdoutのRandom ForestではRMSEがM8のみ0.651 dex、Ngalを追加し
 
 解析的なラグランジュ半径は R_Lag=[3M0/(4πρbar_m,0)]^(1/3)。中央値7.146 cMpc、16–84%は3.967–11.384 cMpcで、全体の最適ハロー環境半径10 cMpcは中央値の1.40倍。最終質量群ごとの最適半径は2,5,8,15,20 cMpcと増える。ただし、この分割には既知のM0を使うので、未知の最終質量を観測から推定するための半径選択規則ではない。最高質量群の20 cMpcは探索上限であり、ピーク位置の確定には半径拡張が必要である。
 
-### 5. tng300_protohalo_lagrangian_regions.ipynb
+### 5. 05_tng300_protohalo_lagrangian_regions.ipynb
 
 各独立最終ホストについて、最も重い選択済みz≈8前駆体を代表とする。log10 M0=12.5–13.5,13.5–14,14–14.5,>14.5から20ホストずつ、計80を固定seedで抽出する。M0<10^12.5 Msunの群は含まない。
 

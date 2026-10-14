@@ -24,5 +24,5 @@ git push
 
 Mac 側で
 
-git restore tng300_z8_descendant_mass.ipynb
+git restore 01_tng300_z8_descendant_mass.ipynb
 git pull

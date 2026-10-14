@@ -1,10 +1,28 @@
 # Protohalo notebooks
 
-IllustrisTNG300-1 の既存解析を読むための索引です。主要なノートブックはファイル名と配置を維持し、TNG100 の学習・試行用ノートブックだけを `examples/` に分けています。
+IllustrisTNG300-1 の既存解析を読むための索引です。ファイル名の先頭番号は、Git履歴で確認できる初回追加順です（実際の作成日時とは限りません）。TNG100 の学習・試行用ノートブックは `examples/` に分け、別の連番にしています。
+
+
+## 作成順の索引
+
+| 番号 | Notebook | Git初回追加日（日本時間） |
+|---|---|---|
+| 01 | [01_tng300_z8_descendant_mass.ipynb](01_tng300_z8_descendant_mass.ipynb) | 2026-09-11 |
+| 02 | [02_tng300_descendant_with_galaxy_properties.ipynb](02_tng300_descendant_with_galaxy_properties.ipynb) | 2026-09-11 |
+| 03 | [03_tng300_descendant_with_environment.ipynb](03_tng300_descendant_with_environment.ipynb) | 2026-09-25 |
+| 04 | [04_tng300_environment_robustness.ipynb](04_tng300_environment_robustness.ipynb) | 2026-09-25 |
+| 05 | [05_tng300_protohalo_lagrangian_regions.ipynb](05_tng300_protohalo_lagrangian_regions.ipynb) | 2026-09-25 |
+| 06 | [06_tng300_z10_descendants_colibre_comparison.ipynb](06_tng300_z10_descendants_colibre_comparison.ipynb) | 2026-10-07 |
+| 07 | [07_tng300_main_results_summary.ipynb](07_tng300_main_results_summary.ipynb) | 2026-10-08 |
+| 08 | [08_tng300_descendant_predictive_performance.ipynb](08_tng300_descendant_predictive_performance.ipynb) | 2026-10-08 |
+| 09 | [09_tng300_latent_host_posterior.ipynb](09_tng300_latent_host_posterior.ipynb) | 2026-10-14 |
+
+`09` は外部の作業フォルダで作成され、2026-10-13にこのフォルダへ移動、2026-10-14にGitへ追加されました。
+`examples/` の2冊はともに2026-09-02の同一コミットで初回追加され、作成の前後関係は不明です。便宜上、tutorialを01、mergertree_testを02としています。
 
 ## 最初に読む
 
-[tng300_main_results_summary.ipynb](tng300_main_results_summary.ipynb) に、主要4冊の結果表と、z≈8 のハロー質量選択に情報を追加した場合の z=0 descendant host mass PDF をまとめています。図は実行番号 `[6]` のセルにあります。保存済みCSVだけで再実行でき、シミュレーション本体は不要です。
+[07_tng300_main_results_summary.ipynb](07_tng300_main_results_summary.ipynb) に、主要4冊の結果表と、z≈8 のハロー質量選択に情報を追加した場合の z=0 descendant host mass PDF をまとめています。図は実行番号 `[6]` のセルにあります。保存済みCSVだけで再実行でき、シミュレーション本体は不要です。
 
 詳しい手法・図の読み方は [解析まとめ](../analysis_summary/tng300_analysis_summary_ja.md)、COLIBRE 論文との違いは [比較まとめ](../analysis_summary/tng300_vs_colibre_ja.md) を参照してください。
 
@@ -12,10 +30,10 @@ IllustrisTNG300-1 の既存解析を読むための索引です。主要なノ�
 
 | 順序 | Notebook | 役割 | 保存データ／前提 |
 |---|---|---|---|
-| 1 | [tng300_z8_descendant_mass.ipynb](tng300_z8_descendant_mass.ipynb) | 初期ハローの質量選択、中心subhaloから z=0 FoF host への対応付け、基準の質量分布 | `data/tng300_z8_M11_descendants.csv` を生成 |
-| 2 | [tng300_descendant_with_galaxy_properties.ipynb](tng300_descendant_with_galaxy_properties.ipynb) | 中心銀河の恒星質量・SFR、5 cMpc の銀河数と descendant mass の関係 | 1のCSVとTNGカタログを使用。銀河特性のみの独立CSVは保存していない |
-| 3 | [tng300_descendant_with_environment.ipynb](tng300_descendant_with_environment.ipynb) | 1–20 cMpc の球内の銀河数・ハロー数・質量和、条件付きPDFと回帰 | 1のCSVを読み、`data/tng300_z8_M11_descendants_environment.csv` を生成 |
-| 4 | [tng300_environment_robustness.ipynb](tng300_environment_robustness.ipynb) | tracerの質量閾値、円柱投影、解析的Lagrangian scaleによる頑健性確認 | 1のCSVを読み、`data/tng300_environment_*_summary.csv` と `data/tng300_environment_cylinder_correlations.csv` を生成 |
+| 1 | [01_tng300_z8_descendant_mass.ipynb](01_tng300_z8_descendant_mass.ipynb) | 初期ハローの質量選択、中心subhaloから z=0 FoF host への対応付け、基準の質量分布 | `data/tng300_z8_M11_descendants.csv` を生成 |
+| 2 | [02_tng300_descendant_with_galaxy_properties.ipynb](02_tng300_descendant_with_galaxy_properties.ipynb) | 中心銀河の恒星質量・SFR、5 cMpc の銀河数と descendant mass の関係 | 1のCSVとTNGカタログを使用。銀河特性のみの独立CSVは保存していない |
+| 3 | [03_tng300_descendant_with_environment.ipynb](03_tng300_descendant_with_environment.ipynb) | 1–20 cMpc の球内の銀河数・ハロー数・質量和、条件付きPDFと回帰 | 1のCSVを読み、`data/tng300_z8_M11_descendants_environment.csv` を生成 |
+| 4 | [04_tng300_environment_robustness.ipynb](04_tng300_environment_robustness.ipynb) | tracerの質量閾値、円柱投影、解析的Lagrangian scaleによる頑健性確認 | 1のCSVを読み、`data/tng300_environment_*_summary.csv` と `data/tng300_environment_cylinder_correlations.csv` を生成 |
 
 1、3、4が保存データの生成経路です。2と3は1から分岐し、2は3の実行前提ではありません。主要4冊を再計算するには TNG300-1 本体と `illustris_python` が必要です。
 
@@ -23,15 +41,15 @@ IllustrisTNG300-1 の既存解析を読むための索引です。主要なノ�
 
 | Notebook | 役割 | 実行時の入力 |
 |---|---|---|
-| [tng300_protohalo_lagrangian_regions.ipynb](tng300_protohalo_lagrangian_regions.ipynb) | z=0 のDM粒子IDを z≈8 へ照合し、protohaloの空間的広がりを調べる | 主解析のCSV、TNG300-1の粒子スナップショット。キャッシュは `cache/protohalo_particle_cache/` |
-| [tng300_z10_descendants_colibre_comparison.ipynb](tng300_z10_descendants_colibre_comparison.ipynb) | z≈10 のサンプルを追跡し、COLIBRE Fig.7/8に対応する図と分類を比較 | TNG300-1、必要に応じて z≈8 の基準CSV。出力は `data/tng300_z10_colibre/` |
+| [05_tng300_protohalo_lagrangian_regions.ipynb](05_tng300_protohalo_lagrangian_regions.ipynb) | z=0 のDM粒子IDを z≈8 へ照合し、protohaloの空間的広がりを調べる | 主解析のCSV、TNG300-1の粒子スナップショット。キャッシュは `cache/protohalo_particle_cache/` |
+| [06_tng300_z10_descendants_colibre_comparison.ipynb](06_tng300_z10_descendants_colibre_comparison.ipynb) | z≈10 のサンプルを追跡し、COLIBRE Fig.7/8に対応する図と分類を比較 | TNG300-1、必要に応じて z≈8 の基準CSV。出力は `data/tng300_z10_colibre/` |
 
 z≈10 の比較は z≈8 の環境解析とは別の枝です。図の保存・PDF描画の例は、比較ノートブックの z≈10 / z≈8 halo-mass PDF 比較セルを参照してください。セルの実行番号は再実行で変わります。
 
 ## 学習・試行用
 
-- [examples/tutorial.ipynb](examples/tutorial.ipynb)：IllustrisTNG のカタログ、粒子、merger tree を扱う TNG100 チュートリアル。
-- [examples/mergertree_test.ipynb](examples/mergertree_test.ipynb)：TNG100 の merger tree 操作の試行。
+- [examples/01_tutorial.ipynb](examples/01_tutorial.ipynb)：IllustrisTNG のカタログ、粒子、merger tree を扱う TNG100 チュートリアル。
+- [examples/02_mergertree_test.ipynb](examples/02_mergertree_test.ipynb)：TNG100 の merger tree 操作の試行。
 
 これらは主解析の依存先ではありません。元のコード・出力を保存しており、実行する場合は各セルの `basePath` を使用環境の TNG100 のパスに設定してください。
 
