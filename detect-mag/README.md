@@ -204,3 +204,36 @@ Deleting a grid sacrifices reuse for a new cone geometry, but not the existing
 completed cone or projection results. Ordinary exceptions clean up newly created
 work files; hard crashes still require manual cleanup. One default coeval work
 grid needs about 3.73 GiB; one default theory work grid needs 3 GiB.
+
+## Approximate analytic RM² model
+
+`tng_fr_analytic_comparison.ipynb` implements a finite-periodic-box version of
+Zhang & Lidz Eq. (3.3). It reads only completed `coeval_projection_*.npz` caches:
+no original gas access, no additional 3D grids, no new cache. It uses the RM
+variance (a two-point quantity) and projected electron–halo/galaxy correlation
+to predict the measured RM²–tracer cross-correlation. `K=3` is the paper value;
+a separate descriptive fit uses only z~0 at 1–10 h^-1 cMpc, then fixes that K
+at the other redshifts. This is a simulation-informed approximation test, not
+an independent first-principles prediction. The transverse Fourier zero mode
+is excluded and all other grid modes are retained.
+
+The model uses the measured q_parallel=0 electron/tracer spectrum, instead of
+the paper's isotropic 3D spectrum plus linear low-k extrapolation. It reproduces
+the periodic box estimator's binning. For ideal CMB-sourced RM, use the same
+foreground model with the source cutoff at last scattering. CMB polarization
+RM reconstruction response/noise, lensing and foregrounds are not included.
+
+Run after at least one coeval projection is complete; all twelve epochs are
+not needed for the coeval comparison. If multiple caches share a snapshot and
+grid size, set `SELECTED_CACHE_FILES` explicitly rather than silently choosing
+one. Old NPZs have no embedded source/kernel metadata: the notebook checks
+matching bridge JSON metadata when available, otherwise warns and records file
+hashes. Preserve the original selection settings when interpreting results.
+The optional lightcone reference uses the exported true-z galaxy distribution
+and coeval galaxy models, only when the completed epochs cover a full galaxy
+bin. No redshift extrapolation is performed. The lightcone reference has no
+finite-window/integral-constraint correction, and coeval/cone gridding differences
+remain a limitation; it is an initial comparison rather than a precision forecast.
+
+Outputs in `fr_analytic_comparison/` (git-ignored): coeval halo/galaxy comparison
+figures, optional lightcone reference, CSV amplitudes/curves and JSON provenance.
