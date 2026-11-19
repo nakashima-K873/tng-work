@@ -16,6 +16,8 @@ IllustrisTNG300-1 の既存解析を読むための索引です。ファイル�
 | 07 | [07_tng300_main_results_summary.ipynb](07_tng300_main_results_summary.ipynb) | 2026-10-08 |
 | 08 | [08_tng300_descendant_predictive_performance.ipynb](08_tng300_descendant_predictive_performance.ipynb) | 2026-10-08 |
 | 09 | [09_tng300_latent_host_posterior.ipynb](09_tng300_latent_host_posterior.ipynb) | 2026-10-14 |
+| 10 | [10_tng300_latent_host_environment_posterior.ipynb](10_tng300_latent_host_environment_posterior.ipynb) | 2026-10-16 |
+| 11 | [11_tng300_observational_environment_descendant_prediction.ipynb](11_tng300_observational_environment_descendant_prediction.ipynb) | 未コミット（作成：2026-11-19） |
 
 `09` は外部の作業フォルダで作成され、2026-10-13にこのフォルダへ移動、2026-10-14にGitへ追加されました。
 `examples/` の2冊はともに2026-09-02の同一コミットで初回追加され、作成の前後関係は不明です。便宜上、tutorialを01、mergertree_testを02としています。
@@ -78,3 +80,16 @@ z≈10 の比較は z≈8 の環境解析とは別の枝です。図の保存・
 ## 潜在ホスト事後分布の保存先
 
 `09_tng300_latent_host_posterior.ipynb` の標本CSV・追跡SQLite・推論結果・図は、すべて `protohalo/cache/tng300_bayesian_latent_results/` 以下へ保存します。リポジトリ直下・`protohalo/`・`notebooks/` のどこから実行しても同じ保存先を検出します。`protohalo/cache/` はGitの追跡対象外です。
+
+## 観測条件を通した環境情報と直接予測
+
+[11_tng300_observational_environment_descendant_prediction.ipynb](11_tng300_observational_environment_descendant_prediction.ipynb) は、**TNG公式JupyterLabへ1冊だけアップロードして実行できる独立ノートブック**です。必要な関数はすべて内部に含み、09/10の実行済みkernelや別のPythonファイルを必要としません。
+
+- 既定は `MODE='tng'`、TNG300-1のsnapshot 8。`BASE_PATH` または `TNG_OUTPUT_DIR` でデータの場所を指定できます。09のカタログは任意で再利用できます。
+- 恒星質量・赤方偏移の模擬誤差、検出率、分光率を与え、3D球と測光／分光の投影環境を1–15 cMpcで比較します。実際のJWST flux選択・ALMA・Lyαのモデルは含みません。
+- 真のhalo massのみ／環境追加、観測に対応する情報からの直接予測／同じ入力を使う二段階法を、空間と最終hostを分離した共通testで比較します。SFRは瞬間SFRを使うproxy実験です。
+- 正解は固定したanchor銀河の最終host質量です。別に、固定した3D領域内の銀河が複数の最終hostへ分かれる割合を監査します。
+- 出力・追跡checkpoint・CV再開ファイルは `protohalo/cache/tng300_observational_environment/`。設定と入力・実装のfingerprintでrunを分けます。
+- `MODE='synthetic_demo'` は人工データによる動作確認専用で、科学的なTNG結果ではありません。
+
+各解析の目的・手法・仮定・限界はノートブックのMarkdownに記載しています。開発用の関数原本は [observational_environment.py](../observational_environment.py)、生成は [build_observational_notebook.py](../tools/build_observational_notebook.py)、検証は [test_observational_environment.py](../tests/test_observational_environment.py) です。原本を変更した場合は生成scriptでノートブックを再生成してください。

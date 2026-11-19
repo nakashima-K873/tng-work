@@ -1,4 +1,6 @@
 .ipynb_checkpoints/
+__pycache__/
+.pytest_cache/
 detect-mag/fr_photoz_outputs/
 protohalo/cache/
 protohalo/cache/
