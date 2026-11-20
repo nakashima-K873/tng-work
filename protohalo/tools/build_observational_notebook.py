@@ -208,6 +208,12 @@ md(r"""
 残ったtraining slabを3分割し、CVでも同じ空間embargoと最終host purgeを行う。
 複数時刻の場合は全時刻を通してhostをpurgeする。
 
+既定の最小学習数は40、validationは8、学習側の最終host数は10。
+これらは計算を成立させるための下限で、統計的精度を保証する数ではない。
+候補leaf sizeは10/20/50とし、最も少ないCV学習標本でも2つのleafを作れる候補だけを
+**全fold・全モデルに共通の規則で**使用する。例えば最小foldが53天体ならleaf=10/20を使い、
+leaf=50は除外する。fold自体を抜いたり、空間embargoやhost purgeを緩めたりしない。
+
 候補bandwidthや木のleaf sizeはtraining CVだけで選ぶ。CVが全foldで成立しない時刻は、
 全モデルで共通に除外し、理由と天体数を保存する。疎な時刻へ無検証でパラメータを移さない。
 testは一度固定して、全モデルを同じ天体上で採点する。
@@ -228,7 +234,9 @@ $$\hat p(y\mid x)=\sum_j w_j(x)\,\mathcal N(y;y_j,h_y^2),\quad
 w_j(x)=\frac1T\sum_t\frac{\mathbf1[l_t(x)=l_t(x_j)]}{n_{t,l_t(x)}}.$$
 
 Gaussian混合は全実数上で正規化され、密度の単位はdex$^{-1}$。
-leaf sizeと出力幅 $h_y$ をCVのNLLで選ぶ。平滑化幅は観測誤差やモデル不確実性そのものではない。
+標本数による候補判定を先に行い、その後leaf sizeと出力幅 $h_y$ をCVのNLLで選ぶ。
+標本数より大きいleafを指定して、すべてのqueryが同じ分布になる候補を比較に混ぜない。
+平滑化幅は観測誤差やモデル不確実性そのものではない。
 これはシミュレーションの母集団に基づく経験的な条件付き分布であり、木のパラメータのBayesian posteriorではない。
 
 **二段階法。** 同じ観測特徴量から $p(m_z\mid D)$ を学び、別の $p(y\mid m_z)$ と積分する。
@@ -367,7 +375,8 @@ md("""
 ## 実行3：分割とCVの成立条件の確認
 
 spatial/host purgeのため、多くのanchorが学習・testの両方から外れることがある。
-その数を隠さず保存する。CV不成立なら停止し、testを使って分割やパラメータを調整しない。
+その数を隠さず保存する。`cv_fold_audit.csv`には各条件の必要数と不成立の理由も記録する。
+CV不成立なら停止し、testを使って分割やパラメータを調整しない。
 対象時刻・計算上限を変える再設計は、新しいrunとして扱う。
 """)
 code("""
@@ -385,7 +394,9 @@ atomic_csv(cv_audit, RUN_DIR/'cv_fold_audit.csv')
 display(partitioned.groupby(['snapshot', 'partition']).size().rename('N').reset_index())
 display(cv_audit)
 if not EPOCHS:
-    raise ValueError('No epoch supports every CV fold. Inspect cv_fold_audit.csv; do not report a model.')
+    details = cv_audit.loc[~cv_audit.eligible, ['snapshot', 'fold', 'reason']].to_string(index=False)
+    raise ValueError('No epoch supports every CV fold. Inspect cv_fold_audit.csv; '
+                     'the spatial/host separation has been retained.\\n'+details)
 if set(EPOCHS) != set(CFG.snapshots):
     print('Excluded from ALL model comparisons:', sorted(set(CFG.snapshots)-set(EPOCHS)))
 print('Epochs used by ALL models:', EPOCHS)
@@ -423,10 +434,15 @@ md("""
 ## 実行5：training CVでモデルを固定する
 
 全モデルで同じvalidation銀河を使用する。計算量を抑えるcapもモデル間で共有する。
+`cv_candidate_audit.csv`で、最小foldの学習数と候補ごとの必要数・採用可否を確認する。
+候補の採用可否にはvalidation/testの質量や予測損失を用いない。
 CVの1モデル・1候補・1fold・1時刻ごとにCSVへ保存し、通常の中断後には完了分を再利用する。
 `selected_models.json`はtestの評価前に確定する。
 """)
 code("""
+candidate_audit = density_candidate_audit(folds, EPOCHS, CFG)
+atomic_csv(candidate_audit, RUN_DIR/'cv_candidate_audit.csv')
+display(candidate_audit.groupby(['leaf', 'minimum_cv_train', 'required_train', 'eligible']).size().rename('N_candidates').reset_index())
 selected, cv_scores = tune_models(train, folds, EPOCHS, CFG, checkpoint=RUN_DIR/'cv_scores.csv')
 (RUN_DIR/'selected_models.json').write_text(json.dumps(selected, indent=2, ensure_ascii=False))
 display(pd.DataFrame([dict(model=k, cv_nll=v['cv_nll'], n_features=len(v['features']), **v['params'])
@@ -591,7 +607,7 @@ md(r"""
 観測時間あたりの情報量の比較には、装置の感度・pointing・target配置のモデルも別途必要である。
 
 保存される主なファイル：`manifest.json`、`tracking_quality.csv`、`features.csv`、`split.csv`、
-`cv_fold_audit.csv`、`cv_scores.csv`、`selected_models.json`、`test_predictions.csv`、
+`cv_fold_audit.csv`、`cv_candidate_audit.csv`、`cv_scores.csv`、`selected_models.json`、`test_predictions.csv`、
 `test_validation.csv`、`paired_differences.csv`、`calibration_bins.csv`、各PNG。
 region監査を有効にすると`region_descendant_audit.csv`も保存する。
 モデルそのもののpickleは保存しない。固定した設定とcatalogから再学習する。
@@ -617,6 +633,10 @@ notebook = dict(cells=cells, metadata=dict(
     implementation_sha256=SOURCE_SHA,
     intended_runtime='IllustrisTNG JupyterLab; standalone notebook'),
     nbformat=4, nbformat_minor=4)
+# Match Jupyter's line-array serialization so regenerating code does not
+# replace every unchanged source cell after a user has saved an execution.
+for cell in cells:
+    cell['source'] = cell['source'].splitlines(keepends=True)
 destination = ROOT/'notebooks'/'11_tng300_observational_environment_descendant_prediction.ipynb'
 destination.write_text(json.dumps(notebook, ensure_ascii=False, indent=1)+'\n')
 print('Wrote', destination, 'cells=', len(cells))

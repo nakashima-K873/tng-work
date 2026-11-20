@@ -58,11 +58,11 @@ class Config:
     test_cap_per_snapshot: int = 300
     n_trees: int = 64
     max_depth: int = 10
-    leaf_grid: tuple = (20, 50)
+    leaf_grid: tuple = (10, 20, 50)
     ywidth_grid: tuple = (0.15, 0.30)
     mwidth_grid: tuple = (0.10, 0.25)
     bridge_grid_size: int = 101
-    min_train: int = 60
+    min_train: int = 40
     min_validation: int = 8
     min_hosts: int = 10
     bootstrap_draws: int = 200
@@ -547,13 +547,31 @@ def cv_splits(train, split_spec, cfg):
             aa, bb = a.loc[a.snapshot.eq(sn)], b.loc[b.snapshot.eq(sn)]
             audit.append(dict(fold=fold, snapshot=int(sn), N_train=len(aa), N_validation=len(bb),
                               hosts_train=aa.GroupID_z0.nunique(), hosts_validation=bb.GroupID_z0.nunique(),
-                              eligible=len(aa) >= cfg.min_train and len(bb) >= cfg.min_validation
-                              and aa.GroupID_z0.nunique() >= cfg.min_hosts))
+                              **cv_requirements(len(aa), len(bb), aa.GroupID_z0.nunique(), cfg)))
     audit = pd.DataFrame(audit)
     usable = audit.groupby('snapshot').eligible.all()
     epochs = usable.index[usable].tolist()
     audit['used_by_all_models'] = audit.snapshot.isin(epochs)
     return splits, audit, epochs
+
+
+def cv_requirements(n_train, n_validation, hosts_train, cfg):
+    """Sample-size gate, independent of targets, scores, and held-out test.
+
+    In addition to the explicit floor, at least the smallest candidate must
+    have enough rows for two leaves. Larger leaves are checked separately
+    against the smallest training fold shared by all selected epochs.
+    """
+    required = max(cfg.min_train, 2*min(cfg.leaf_grid))
+    failures = []
+    if n_train < required:
+        failures.append('N_train=%d < required=%d' % (n_train, required))
+    if n_validation < cfg.min_validation:
+        failures.append('N_validation=%d < required=%d' % (n_validation, cfg.min_validation))
+    if hosts_train < cfg.min_hosts:
+        failures.append('hosts_train=%d < required=%d' % (hosts_train, cfg.min_hosts))
+    return dict(eligible=not failures, required_train=int(required),
+                max_splittable_leaf=int(n_train//2), reason='; '.join(failures) if failures else 'included')
 
 
 class GaussianMixture:
@@ -605,6 +623,7 @@ class ForestDensity:
     """
     def __init__(self, cols, leaf, ywidth, cfg, target='logM0'):
         self.cols, self.width, self.target = list(cols), float(ywidth), target
+        self.leaf = int(leaf)
         self.forest = ExtraTreesRegressor(n_estimators=cfg.n_trees, min_samples_leaf=int(leaf),
             max_depth=cfg.max_depth, max_features=1., bootstrap=False, n_jobs=1, random_state=cfg.seed)
 
@@ -613,6 +632,9 @@ class ForestDensity:
         y = frame[self.target].to_numpy(float)
         if not len(frame) or not np.isfinite(x).all() or not np.isfinite(y).all():
             raise ValueError('Training features and response must be finite')
+        if len(frame) < 2*self.leaf:
+            raise ValueError('N_train=%d cannot support two leaves of size %d; inspect cv_candidate_audit.csv'
+                             % (len(frame), self.leaf))
         self.means, self.hosts = y, frame.GroupID_z0.to_numpy()
         self.minimum, self.maximum = x.min(axis=0), x.max(axis=0)
         self.forest.fit(x, y)
@@ -692,8 +714,33 @@ def density_grid(name, cfg):
             for leaf, yw, mw in values]
 
 
+def density_candidate_audit(splits, epochs, cfg):
+    """One common candidate set; never skip an individual difficult fold."""
+    if not epochs or not splits:
+        raise ValueError('At least one eligible epoch and CV split is required')
+    counts = [len(fit.loc[fit.snapshot.eq(sn)]) for fit, _ in splits for sn in epochs]
+    minimum = min(counts)
+    rows = []
+    for name in feature_sets(cfg):
+        for candidate, params in enumerate(density_grid(name, cfg)):
+            eligible = minimum >= 2*params['leaf']
+            rows.append(dict(model=name, candidate=candidate, minimum_cv_train=minimum,
+                required_train=2*params['leaf'], eligible=eligible,
+                reason='included' if eligible else 'too few rows for two leaves in the smallest CV training fold',
+                **params))
+    return pd.DataFrame(rows)
+
+
 def tune_models(train, splits, epochs, cfg, progress=print, checkpoint=None):
     """No test access; equal fold and epoch weights, common validation caps."""
+    candidate_audit = density_candidate_audit(splits, epochs, cfg)
+    active = candidate_audit.loc[candidate_audit.eligible]
+    for name in feature_sets(cfg):
+        if not active.model.eq(name).any():
+            raise ValueError('No candidate supports every CV training fold for '+name)
+    allowed_keys = {(r.model, int(r.candidate), fold, int(sn))
+                    for r in active.itertuples(index=False)
+                    for fold in range(len(splits)) for sn in epochs}
     records, selected = [], {}
     if checkpoint is not None and Path(checkpoint).exists():
         saved = pd.read_csv(checkpoint, float_precision='round_trip')
@@ -701,8 +748,16 @@ def tune_models(train, splits, epochs, cfg, progress=print, checkpoint=None):
             raise ValueError('Duplicate CV checkpoint keys')
         records = saved.to_dict(orient='records')
     completed = {(r['model'], int(r['candidate']), int(r['fold']), int(r['snapshot'])) for r in records}
+    if not completed.issubset(allowed_keys):
+        raise ValueError('CV checkpoint contains ineligible candidates or different folds; use a new run directory')
+    for row in records:
+        expected = density_grid(row['model'], cfg)[int(row['candidate'])]
+        if any(row.get(k) != v for k, v in expected.items()):
+            raise ValueError('CV checkpoint parameters differ from the current candidate grid')
     for name, cols in feature_sets(cfg).items():
         for candidate, params in enumerate(density_grid(name, cfg)):
+            if not ((active.model == name) & (active.candidate == candidate)).any():
+                continue
             for fold, (all_fit, all_val) in enumerate(splits):
                 for sn in epochs:
                     if (name, candidate, fold, int(sn)) in completed:

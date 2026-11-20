@@ -102,6 +102,55 @@ def test_spatial_and_host_purging(experiment):
         assert np.min(abs(a.split_coordinate.to_numpy()[:, None]-b.split_coordinate.to_numpy()[None, :])) >= spec['embargo_cMpc']-1e-8
 
 
+def test_saved_tng_fold_counts_pass_without_relaxing_spatial_split():
+    # Counts from the user's TNG snapshot-8 execution, not artificial 400-anchor defaults.
+    cfg = oe.Config()
+    for n_train, n_validation, n_hosts in [(75, 65, 57), (53, 44, 41), (88, 54, 72)]:
+        result = oe.cv_requirements(n_train, n_validation, n_hosts, cfg)
+        assert result['eligible']
+        assert result['required_train'] == 40
+    old = oe.cv_requirements(53, 44, 41, replace(cfg, min_train=60))
+    assert not old['eligible']
+    assert 'N_train=53 < required=60' in old['reason']
+    too_small = oe.cv_requirements(39, 44, 41, cfg)
+    assert not too_small['eligible']
+    # A custom large-leaf grid must not silently pass the new 40-row floor.
+    assert oe.cv_requirements(53, 44, 41, replace(cfg, leaf_grid=(50,)))['required_train'] == 100
+
+
+def test_sparse_tng_sized_folds_exclude_unsplittable_candidates(experiment, tmp_path):
+    data = experiment[4]
+    cfg = replace(oe.Config(), n_trees=4, cv_cap_per_snapshot=8,
+                  ywidth_grid=(.2,), mwidth_grid=(.15,), bridge_grid_size=41)
+    folds = []
+    for n_train, n_val in [(75, 65), (53, 44), (88, 54)]:
+        fit, val = data.iloc[:n_train].copy(), data.iloc[200:200+n_val].copy()
+        fit['GroupID_z0'] = np.arange(len(fit))
+        val['GroupID_z0'] = np.arange(len(val))+1000
+        folds.append((fit, val))
+    audit = oe.density_candidate_audit(folds, [8], cfg)
+    assert set(audit.loc[audit.eligible, 'leaf']) == {10, 20}
+    assert not audit.loc[audit.leaf.eq(50), 'eligible'].any()
+    assert audit.minimum_cv_train.eq(53).all()
+    selected, scores = oe.tune_models(data, folds, [8], cfg, progress=lambda _: None,
+                                     checkpoint=tmp_path/'cv.csv')
+    assert set(selected) == set(oe.feature_sets(cfg))
+    assert set(scores.leaf) == {10, 20}
+    assert set(scores.fold) == {0, 1, 2}
+    assert np.isfinite(scores.nll).all()
+    # Guard against running a stale checkpoint with a different candidate order.
+    with pytest.raises(ValueError, match='checkpoint'):
+        oe.tune_models(data, folds, [8], replace(cfg, leaf_grid=(20, 10, 50)), progress=lambda _: None,
+                       checkpoint=tmp_path/'cv.csv')
+
+
+def test_density_rejects_a_leaf_larger_than_the_available_split(experiment):
+    data = experiment[4]
+    cfg = small_config()
+    with pytest.raises(ValueError, match='cannot support two leaves'):
+        oe.ForestDensity(['logMstar_obs'], 50, .2, cfg).fit(data.iloc[:53])
+
+
 def test_density_and_two_stage_preserve_distributions(experiment):
     cfg, _, _, _, data = experiment[:5]
     frame = data.iloc[:180].copy()
